@@ -2,9 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <colour name="orange_primary">#ff914d</colour>
-    <colour name="turquoise_cta">#68AEB0</colour>
-    <colour name="blue_accent">#51ECF0</colour>
-    <color name="navy_background">#1B3B48</color>
-    <color name="coral_extra">#FF6F61</color>
+    <color name="orange">#FF914D</color>
+    <color name="turquoise">#68AEB0</color>
+    <color name="blue">#51ECF0</color>
+    <color name="navy">#1B3B48</color>
+    <color name="coral">#FF6F61</color>
+    <color name="red">#D92679</color>
 </resources>

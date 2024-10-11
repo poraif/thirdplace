@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Regular -->
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/afacad_regular" />
+
+    <!-- Italic -->
+    <font
+        android:fontStyle="italic"
+        android:fontWeight="400"
+        android:font="@font/afacad_italic" />
+
+    <!-- Medium -->
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="500"
+        android:font="@font/afacad_medium" />
+
+    <!-- Medium Italic -->
+    <font
+        android:fontStyle="italic"
+        android:fontWeight="500"
+        android:font="@font/afacad_medium_italic" />
+
+    <!-- Bold -->
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="700"
+        android:font="@font/afacad_bold" />
+
+    <!-- Bold Italic -->
+    <font
+        android:fontStyle="italic"
+        android:fontWeight="700"
+        android:font="@font/afacad_bold_italic" />
+
+</font-family>

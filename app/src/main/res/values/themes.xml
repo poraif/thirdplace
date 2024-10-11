@@ -2,8 +2,28 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.ThirdPlace" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-    </style>
+        <!-- app bars, buttons etc and text/icons overlaid -->
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorOnPrimary">@color/white</item>
 
+        <!-- Other buttons and text -->
+        <item name="colorSecondary">@color/turquoise</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <!-- app background and text on background -->
+        <item name="android:colorBackground">@color/navy</item>
+        <item name="colorOnBackground">@color/white</item>
+
+        <!-- Elements on background and their text -->
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/navy</item>
+
+        <!-- Error messages -->
+        <item name="colorError">@color/red</item>
+        <item name="colorOnError">@color/white</item>
+
+]        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+    </style>
     <style name="Theme.ThirdPlace" parent="Base.Theme.ThirdPlace" />
 </resources>

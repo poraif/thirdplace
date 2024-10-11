@@ -6,10 +6,10 @@ import ie.por.thirdplace.R
 import timber.log.Timber
 import timber.log.Timber.i
 
-class PlacemarkActivity : AppCompatActivity() {
+class AddPlaceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_thirdplace)
+        setContentView(R.layout.activity_addplace)
 
         Timber.plant(Timber.DebugTree())
         i("Third Place Activity started...")

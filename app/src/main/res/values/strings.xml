@@ -1,3 +1,19 @@
 <resources>
+<!-- Global -->
     <string name="app_name">Third Place</string>
+    <string name="app_tagline">Find new shared spaces</string>
+<!-- Buttons -->
+    <string name="button_addPlace">Add place</string>
+    <string name="button_signup">Sign up</string>
+    <string name="button_login">Log in</string>
+    <string name="button_goBack">Back to map</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_update">Update</string>
+    <string name="button_cancel">Cancel</string>
+<!-- Hints -->
+    <string name="hint_placeTitle">Add place name here</string>
+    <string name="hint_userName">Joe Bloggs</string>
+    <string name="hint_userEmail">joebloggs@email.com</string>
+    <string name="hint_userPassword">Enter password here</string>
+
 </resources>

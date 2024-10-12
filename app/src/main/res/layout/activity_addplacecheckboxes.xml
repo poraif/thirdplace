@@ -51,55 +51,56 @@
                     android:id="@+id/checkbox_free"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Free" />
+                    android:text="@string/amenity_free"/>
 
                 <CheckBox
                     android:id="@+id/checkbox_charging"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Charging" />
+                    android:text="@string/amenity_charging"/>
 
                 <CheckBox
                     android:id="@+id/checkbox_toilets"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Toilets" />
+                    android:text="@string/amenity_toilets"/>
 
                 <CheckBox
                     android:id="@+id/checkbox_shelter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Shelter" />
+                    android:text="@string/amenity_shelter"/>
 
                 <CheckBox
                     android:id="@+id/checkbox_quiet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Quiet" />
+                    android:text="@string/amenity_quiet"/>
 
                 <CheckBox
                     android:id="@+id/checkbox_membership"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Membership required" />
+                    android:text="@string/amenity_membership"/>
 
                 <CheckBox
-                    android:id="@+id/checkbox_laptop_friendly"
+                    android:id="@+id/checkbox_laptop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Laptop friendly" />
+                    android:text="@string/amenity_laptop"/>
 
                 <CheckBox
                     android:id="@+id/checkbox_equipment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Equipment available" />
+                    android:text="@string/amenity_equipment"/>
 
                 <CheckBox
-                    android:id="@+id/checkbox_always_open"
+                    android:id="@+id/checkbox_alwaysOpen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Always open" />
+                    android:text="@string/amenity_alwaysOpen"/>
+
 
                 <Button
                     android:id="@+id/btnAdd"

@@ -2,6 +2,7 @@
 <!-- Global -->
     <string name="app_name">Third Place</string>
     <string name="app_tagline">Find new shared spaces</string>
+
 <!-- Text fields -->
 <!-- Buttons -->
     <string name="button_continue">Continue</string>
@@ -52,6 +53,12 @@
     <string name="amenity_laptop">Laptop friendly</string>
     <string name="amenity_equipment">Equipment available</string>
     <string name="amenity_alwaysOpen">Always open</string>
+
+<!-- Error messages -->
+    <string name="error_emptyFields">Please fill in all fields</string>
+    <string name="error_email">Please enter a valid email address</string>
+    <string name="error_password">Password does not match</string>
+
 
 
 

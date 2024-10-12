@@ -54,6 +54,62 @@
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
+
+                <EditText
+                    android:id="@+id/thirdPlaceDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:autofillHints="hint"
+                    android:hint="@string/hint_placeDescription"
+                    android:inputType="textMultiLine"
+                    android:maxLength="25"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColor="@color/white"/>
+
+                <EditText
+                    android:id="@+id/placeTypeHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:text="@string/header_placeType"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:padding="8dp"
+                    android:textColor="@color/white"/>
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Outdoors" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cultural" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Food+drink" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Activity" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Community space" />
+                </RadioGroup>
+
                 <Button
                     android:id="@+id/btnAdd"
                     android:layout_width="match_parent"
@@ -62,9 +118,10 @@
                     android:background="@color/turquoise"
                     android:padding="8dp"
                     android:stateListAnimator="@null"
-                    android:text="@string/button_addPlace"
-                    android:textColor="@color/orange"
+                    android:text="@string/button_continue"
+                    android:textColor="@color/white"
                     android:textSize="20sp" />
+
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

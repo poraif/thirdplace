@@ -6,22 +6,31 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import ie.por.thirdplace.R
 import ie.por.thirdplace.databinding.ActivityAddplaceBinding
+import ie.por.thirdplace.main.MainApp
+import ie.por.thirdplace.models.ThirdPlaceModel
 import timber.log.Timber
 import timber.log.Timber.i
 
 class AddPlaceActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityAddplaceBinding
+    var thirdPlace = ThirdPlaceModel()
+    var app : MainApp? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddplaceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.btnAdd.setOnClickListener() {
-            val thirdPlaceTitle = binding.thirdPlaceTitle.text.toString()
-            val thirdPlaceDescription = binding.thirdPlaceDescription.text.toString()
-            val thirdPlaceType = binding.placeTypeRadioGroup.checkedRadioButtonId
-            if (thirdPlaceTitle.isNotEmpty()) {
-                i("add Button Pressed: $thirdPlaceTitle")
+            thirdPlace.title = binding.thirdPlaceTitle.text.toString()
+            thirdPlace.description = binding.thirdPlaceDescription.text.toString()
+            thirdPlace.type = binding.placeTypeRadioGroup.checkedRadioButtonId.toString()
+            if (thirdPlace.title.isNotEmpty() && thirdPlace.type.isNotEmpty()) {
+                i("add Button Pressed: $thirdPlace.title")
+                thirdPlaces.add(thirdPlace.copy())
+                for (i in thirdPlaces.indices)
+                { i("Placemark[$i]:${this.thirdPlaces[i]}") }
             }
             else {
                 Snackbar
@@ -30,7 +39,5 @@ class AddPlaceActivity : AppCompatActivity() {
             }
         }
 
-        Timber.plant(Timber.DebugTree())
-        i("Third Place Add Place activity started...")
     }
 }

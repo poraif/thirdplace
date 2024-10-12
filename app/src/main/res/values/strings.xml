@@ -1,10 +1,10 @@
 <resources>
-<!-- Global -->
+    <!-- Global -->
     <string name="app_name">Third Place</string>
     <string name="app_tagline">Find new shared spaces</string>
 
-<!-- Text fields -->
-<!-- Buttons -->
+    <!-- Text fields -->
+    <!-- Buttons -->
     <string name="button_continue">Continue</string>
     <string name="button_addPlace">Add place</string>
     <string name="button_signup">Sign up</string>
@@ -14,7 +14,7 @@
     <string name="button_update">Update</string>
     <string name="button_cancel">Cancel</string>
 
-<!-- Header messages -->
+    <!-- Header messages -->
     <string name="header_addPlace">Add place</string>
     <string name="header_updatePlace">Update place</string>
     <string name="header_login">Welcome back!</string>
@@ -29,21 +29,21 @@
     <string name="header_placeType">Select place type</string>
 
 
-<!-- Hints -->
+    <!-- Hints -->
     <string name="hint_placeTitle">Add place name here</string>
     <string name="hint_placeDescription">Add place description here</string>
     <string name="hint_userName">Joe Bloggs</string>
     <string name="hint_userEmail">joebloggs@email.com</string>
     <string name="hint_userPassword">Enter password here</string>
 
-<!-- Place Type radio button list -->
+    <!-- Place Type radio button list -->
     <string name="type_outdoors">Outdoors</string>
     <string name="type_cultural">Cultural</string>
     <string name="type_food">Food+drink</string>
     <string name="type_activity">Activity</string>
     <string name="type_community">Community space</string>
 
-<!-- Amenities checkbox list -->
+    <!-- Amenities checkbox list -->
     <string name="amenity_free">Free</string>
     <string name="amenity_charging">Charging</string>
     <string name="amenity_toilets">Toilets</string>
@@ -54,37 +54,33 @@
     <string name="amenity_equipment">Equipment available</string>
     <string name="amenity_alwaysOpen">Always open</string>
 
-<!-- Error messages -->
+    <!-- Error messages -->
     <string name="error_emptyFields">Please fill in all fields</string>
     <string name="error_email">Please enter a valid email address</string>
     <string name="error_password">Password does not match</string>
 
 
+    <!--&lt;!&ndash; Place Type radio button list &ndash;&gt;-->
+    <!--    <string-array name="placeTypes">-->
+    <!--        <item>Outdoors</item>-->
+    <!--        <item>Cultural</item>-->
+    <!--        <item>Food+drink</item>-->
+    <!--        <item>Activity</item>-->
+    <!--        <item>Community space</item>-->
+    <!--    </string-array>-->
 
-
-
-<!--&lt;!&ndash; Place Type radio button list &ndash;&gt;-->
-<!--    <string-array name="placeTypes">-->
-<!--        <item>Outdoors</item>-->
-<!--        <item>Cultural</item>-->
-<!--        <item>Food+drink</item>-->
-<!--        <item>Activity</item>-->
-<!--        <item>Community space</item>-->
-<!--    </string-array>-->
-
-<!--&lt;!&ndash; Amenities checkbox list &ndash;&gt;-->
-<!--<string-array name="amenities">-->
-<!--    <item>Free</item>-->
-<!--    <item>Charging</item>-->
-<!--    <item>Toilets</item>-->
-<!--    <item>Shelter</item>-->
-<!--    <item>Quiet</item>-->
-<!--    <item>Membership required</item>-->
-<!--    <item>Laptop friendly</item>-->
-<!--    <item>Equipment available</item>-->
-<!--    <item>Always open</item>-->
-<!--</string-array>-->
-
+    <!--&lt;!&ndash; Amenities checkbox list &ndash;&gt;-->
+    <!--<string-array name="amenities">-->
+    <!--    <item>Free</item>-->
+    <!--    <item>Charging</item>-->
+    <!--    <item>Toilets</item>-->
+    <!--    <item>Shelter</item>-->
+    <!--    <item>Quiet</item>-->
+    <!--    <item>Membership required</item>-->
+    <!--    <item>Laptop friendly</item>-->
+    <!--    <item>Equipment available</item>-->
+    <!--    <item>Always open</item>-->
+    <!--</string-array>-->
 
 
 </resources>

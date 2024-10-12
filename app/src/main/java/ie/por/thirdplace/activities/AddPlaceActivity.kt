@@ -15,12 +15,15 @@ class AddPlaceActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddplaceBinding
     var thirdPlace = ThirdPlaceModel()
-    var app : MainApp? = null
+    lateinit var app: MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddplaceBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        app = application as MainApp
+        i("Placemark Activity started...")
 
         binding.btnAdd.setOnClickListener() {
             thirdPlace.title = binding.thirdPlaceTitle.text.toString()
@@ -28,9 +31,9 @@ class AddPlaceActivity : AppCompatActivity() {
             thirdPlace.type = binding.placeTypeRadioGroup.checkedRadioButtonId.toString()
             if (thirdPlace.title.isNotEmpty() && thirdPlace.type.isNotEmpty()) {
                 i("add Button Pressed: $thirdPlace.title")
-                thirdPlaces.add(thirdPlace.copy())
-                for (i in thirdPlaces.indices)
-                { i("Placemark[$i]:${this.thirdPlaces[i]}") }
+                app.thirdPlaces.add(thirdPlace.copy())
+                for (i in app.thirdPlaces.indices)
+                { i("Placemark[$i]:${this.app.thirdPlaces[i]}") }
             }
             else {
                 Snackbar

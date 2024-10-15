@@ -15,6 +15,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import ie.por.thirdplace.R
 
+@Suppress("DEPRECATION")
 class AddPlaceActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddplaceBinding
@@ -33,7 +34,14 @@ class AddPlaceActivity : AppCompatActivity() {
         app = application as MainApp
         i("Third Place Activity started...")
 
-        binding.btnAddPlace.setOnClickListener() {
+        if (intent.hasExtra("thirdPlace_edit"))
+            thirdPlace = intent.extras?.getParcelable("thirdPlace_edit")!!
+            binding.thirdPlaceTitle.setText(thirdPlace.title)
+            binding.thirdPlaceDescription.setText(thirdPlace.description)
+
+
+
+        binding.btnAddPlace.setOnClickListener {
             thirdPlace.title = binding.thirdPlaceTitle.text.toString()
             thirdPlace.description = binding.thirdPlaceDescription.text.toString()
 

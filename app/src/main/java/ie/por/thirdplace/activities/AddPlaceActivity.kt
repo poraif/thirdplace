@@ -55,12 +55,9 @@ class AddPlaceActivity : AppCompatActivity() {
 
         if (thirdPlace.title.isNotEmpty() && thirdPlace.type.isNotEmpty()) {
                 i("add Button Pressed: $thirdPlace.title")
-                app.thirdPlaces.add(thirdPlace.copy())
-                for (i in app.thirdPlaces.indices) {
-                    i("Third place[$i]:${this.app.thirdPlaces[i]}")
-                }
-            setResult(RESULT_OK)
-            finish()
+                app.thirdPlaces.create(thirdPlace.copy())
+                setResult(RESULT_OK)
+                finish()
         }
         else {
             Snackbar.make(it,"Please Enter a title and select a type", Snackbar.LENGTH_LONG)

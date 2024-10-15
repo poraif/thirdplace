@@ -13,6 +13,7 @@ import ie.por.thirdplace.adapters.ThirdPlaceAdapter
 import ie.por.thirdplace.adapters.ThirdPlaceListener
 import ie.por.thirdplace.databinding.ActivityThirdplaceListBinding
 import ie.por.thirdplace.main.MainApp
+import ie.por.thirdplace.models.ThirdPlaceModel
 
 class ThirdPlaceListActivity : AppCompatActivity(), ThirdPlaceListener {
 
@@ -30,7 +31,8 @@ class ThirdPlaceListActivity : AppCompatActivity(), ThirdPlaceListener {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = ThirdPlaceAdapter(app.thirdPlaces)
+        binding.recyclerView.adapter
+        ThirdPlaceAdapter(app.thirdPlaces.findAll(),this)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -49,12 +51,25 @@ class ThirdPlaceListActivity : AppCompatActivity(), ThirdPlaceListener {
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
                 (binding.recyclerView.adapter)?.
-                notifyItemRangeChanged(0,app.thirdPlaces.size)
+                notifyItemRangeChanged(0,app.thirdPlaces.findAll().size)
             }
         }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onThirdPlaceClick(thirdPlace: ThirdPlaceModel) {
+        val launcherIntent = Intent(this, AddPlaceActivity::class.java)
+        getClickResult.launch(launcherIntent)
+    }
+
+    private val getClickResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == Activity.RESULT_OK) {
+            (binding.recyclerView.adapter)?.
+            notifyItemRangeChanged(0,app.thirdPlaces.findAll().size)
+        }
+
     }
 }

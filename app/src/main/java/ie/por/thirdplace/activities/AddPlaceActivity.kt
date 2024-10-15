@@ -1,15 +1,17 @@
 package ie.por.thirdplace.activities
 
 import android.os.Bundle
-import android.widget.Button
+import android.content.Intent
+import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
-import ie.por.thirdplace.R
 import ie.por.thirdplace.databinding.ActivityAddplaceBinding
 import ie.por.thirdplace.main.MainApp
 import ie.por.thirdplace.models.ThirdPlaceModel
-import timber.log.Timber
 import timber.log.Timber.i
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import ie.por.thirdplace.R
 
 class AddPlaceActivity : AppCompatActivity() {
 
@@ -17,30 +19,48 @@ class AddPlaceActivity : AppCompatActivity() {
     var thirdPlace = ThirdPlaceModel()
     lateinit var app: MainApp
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddplaceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         app = application as MainApp
-        i("Placemark Activity started...")
+        i("Third Place Activity started...")
 
-        binding.btnAdd.setOnClickListener() {
+        binding.btnAddPlace.setOnClickListener() {
             thirdPlace.title = binding.thirdPlaceTitle.text.toString()
             thirdPlace.description = binding.thirdPlaceDescription.text.toString()
-            thirdPlace.type = binding.placeTypeRadioGroup.checkedRadioButtonId.toString()
-            if (thirdPlace.title.isNotEmpty() && thirdPlace.type.isNotEmpty()) {
+
+            val selectedTypeId = binding.placeTypeRadioGroup.checkedRadioButtonId
+            val selectedTypeRadioButton = findViewById<RadioButton>(selectedTypeId)
+            thirdPlace.type = selectedTypeRadioButton.text.toString()
+
+            val selectedAmenities = mutableListOf<String>()
+            if (binding.checkboxFree.isChecked) selectedAmenities.add(getString(R.string.amenity_free))
+            if (binding.checkboxCharging.isChecked) selectedAmenities.add(getString(R.string.amenity_charging))
+            if (binding.checkboxToilets.isChecked) selectedAmenities.add(getString(R.string.amenity_toilets))
+            if (binding.checkboxShelter.isChecked) selectedAmenities.add(getString(R.string.amenity_shelter))
+            if (binding.checkboxQuiet.isChecked) selectedAmenities.add(getString(R.string.amenity_quiet))
+            if (binding.checkboxMembership.isChecked) selectedAmenities.add(getString(R.string.amenity_membership))
+            if (binding.checkboxLaptop.isChecked) selectedAmenities.add(getString(R.string.amenity_laptop))
+            if (binding.checkboxEquipment.isChecked) selectedAmenities.add(getString(R.string.amenity_equipment))
+            if (binding.checkboxAlwaysOpen.isChecked) selectedAmenities.add(getString(R.string.amenity_alwaysOpen))
+            thirdPlace.amenities = selectedAmenities
+
+        if (thirdPlace.title.isNotEmpty() && thirdPlace.type.isNotEmpty()) {
                 i("add Button Pressed: $thirdPlace.title")
                 app.thirdPlaces.add(thirdPlace.copy())
-                for (i in app.thirdPlaces.indices)
-                { i("Placemark[$i]:${this.app.thirdPlaces[i]}") }
-            }
-            else {
-                Snackbar
-                    .make(it,"Please Enter a title", Snackbar.LENGTH_LONG)
-                    .show()
-            }
+                for (i in app.thirdPlaces.indices) {
+                    i("Third place[$i]:${this.app.thirdPlaces[i]}")
+                }
+            setResult(RESULT_OK)
+            finish()
         }
-
+        else {
+            Snackbar.make(it,"Please Enter a title and select a type", Snackbar.LENGTH_LONG)
+                .show()
+        }
+        }
     }
 }

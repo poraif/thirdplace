@@ -2,6 +2,12 @@ package ie.por.thirdplace.models
 
 import timber.log.Timber.i
 
+var lastId = 0L
+
+internal fun getId(): Long {
+    return lastId++
+}
+
 class ThirdPlaceMemStore : ThirdPlaceStore {
 
     val thirdPlaces = ArrayList<ThirdPlaceModel>()
@@ -11,20 +17,25 @@ class ThirdPlaceMemStore : ThirdPlaceStore {
     }
 
     override fun create(thirdPlace: ThirdPlaceModel) {
+        thirdPlace.id = getId()
         thirdPlaces.add(thirdPlace)
         logAll()
     }
 
     override fun update(thirdPlace: ThirdPlaceModel) {
-        TODO("Not yet implemented")
+        var thirdPlaceToUpdate: ThirdPlaceModel? = thirdPlaces.find { p -> p.id == thirdPlace.id }
+        if (thirdPlaceToUpdate != null) {
+            thirdPlaceToUpdate.title = thirdPlace.title
+            thirdPlaceToUpdate.description = thirdPlace.description
+            logAll()
+        }
     }
 
-    override fun delete(thirdPlace: ThirdPlaceModel) {
-        TODO("Not yet implemented")
-    }
+        override fun delete(thirdPlace: ThirdPlaceModel) {
+            TODO("Not yet implemented")
+        }
 
-    fun logAll() {
-        thirdPlaces.forEach { i("${it}") }
+        private fun logAll() {
+            thirdPlaces.forEach { i("$it") }
+        }
     }
-
-}

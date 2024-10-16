@@ -13,6 +13,8 @@
     <string name="button_delete">Delete</string>
     <string name="button_update">Update</string>
     <string name="button_cancel">Cancel</string>
+    <string name="button_addImages">Add image</string>
+
 
     <!-- Menu -->
     <string name="menu_addPlace">Add</string>
@@ -39,6 +41,7 @@
     <string name="hint_userName">Joe Bloggs</string>
     <string name="hint_userEmail">joebloggs@email.com</string>
     <string name="hint_userPassword">Enter password here</string>
+    <string name="hint_selectImage">Select image</string>
 
     <!-- Place Type radio button list -->
     <string name="type_outdoors">Outdoors</string>
@@ -59,6 +62,7 @@
     <string name="amenity_alwaysOpen">Always open</string>
 
     <!-- Error messages -->
+    <string name="error_titleTypeMissing">Please enter a title and select a type</string>
     <string name="error_emptyFields">Please fill in all fields</string>
     <string name="error_email">Please enter a valid email address</string>
     <string name="error_password">Password does not match</string>

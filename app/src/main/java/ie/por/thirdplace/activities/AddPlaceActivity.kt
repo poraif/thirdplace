@@ -13,6 +13,7 @@ import ie.por.thirdplace.models.ThirdPlaceModel
 import timber.log.Timber.i
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import com.squareup.picasso.Picasso
 import ie.por.thirdplace.R
 
 @Suppress("DEPRECATION")
@@ -21,6 +22,26 @@ class AddPlaceActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddplaceBinding
     var thirdPlace = ThirdPlaceModel()
     lateinit var app: MainApp
+    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
+
+    private fun registerImagePickerCallback() {
+        imageIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when(result.resultCode){
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Result ${result.data!!.data}")
+                            thirdPlace.image = result.data!!.data!!
+                            Picasso.get()
+                                .load(thirdPlace.image)
+                                .into(binding.thirdPlaceImage)
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,16 +49,24 @@ class AddPlaceActivity : AppCompatActivity() {
         binding = ActivityAddplaceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        var edit = false
+
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp
         i("Third Place Activity started...")
 
-        if (intent.hasExtra("thirdPlace_edit"))
+        if (intent.hasExtra("thirdPlace_edit")) {
+            edit = true
             thirdPlace = intent.extras?.getParcelable("thirdPlace_edit")!!
             binding.thirdPlaceTitle.setText(thirdPlace.title)
             binding.thirdPlaceDescription.setText(thirdPlace.description)
+            binding.btnAddPlace.setText(R.string.button_update)
+            Picasso.get()
+                .load(thirdPlace.image)
+                .into(binding.thirdPlaceImage)
+        }
 
 
 
@@ -63,14 +92,22 @@ class AddPlaceActivity : AppCompatActivity() {
 
         if (thirdPlace.title.isNotEmpty() && thirdPlace.type.isNotEmpty()) {
                 i("add Button Pressed: $thirdPlace.title")
-                app.thirdPlaces.create(thirdPlace.copy())
+                if (edit) {
+                    app.thirdPlaces.update(thirdPlace.copy())
+                } else {
+                    app.thirdPlaces.create(thirdPlace.copy())
+                }
                 setResult(RESULT_OK)
                 finish()
         }
         else {
-            Snackbar.make(it,"Please Enter a title and select a type", Snackbar.LENGTH_LONG)
+            Snackbar.make(it, R.string.error_titleTypeMissing, Snackbar.LENGTH_LONG)
                 .show()
         }
+        }
+
+        binding.chooseImage.setOnClickListener {
+            i("Select image")
         }
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

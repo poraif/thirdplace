@@ -27,6 +27,9 @@ class ThirdPlaceMemStore : ThirdPlaceStore {
         if (thirdPlaceToUpdate != null) {
             thirdPlaceToUpdate.title = thirdPlace.title
             thirdPlaceToUpdate.description = thirdPlace.description
+            thirdPlaceToUpdate.amenities = thirdPlace.amenities
+            thirdPlaceToUpdate.type = thirdPlace.type
+            thirdPlaceToUpdate.image = thirdPlace.image
             logAll()
         }
     }

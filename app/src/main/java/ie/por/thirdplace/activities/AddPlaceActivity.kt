@@ -90,19 +90,26 @@ class AddPlaceActivity : AppCompatActivity() {
             if (binding.checkboxAlwaysOpen.isChecked) selectedAmenities.add(getString(R.string.amenity_alwaysOpen))
             thirdPlace.amenities = selectedAmenities
 
-        if (thirdPlace.title.isNotEmpty() && thirdPlace.type.isNotEmpty()) {
-                i("add Button Pressed: $thirdPlace.title")
-                if (edit) {
-                    app.thirdPlaces.update(thirdPlace.copy())
-                } else {
-                    app.thirdPlaces.create(thirdPlace.copy())
-                }
-                setResult(RESULT_OK)
-                finish()
-        }
-        else {
+        if (thirdPlace.title.isEmpty() || thirdPlace.type.isEmpty()) {
             Snackbar.make(it, R.string.error_titleTypeMissing, Snackbar.LENGTH_LONG)
                 .show()
+        }
+        if (thirdPlace.title.length > 25) {
+            Snackbar.make(it, R.string.error_titleLength, Snackbar.LENGTH_LONG)
+                .show()
+        }
+        if (thirdPlace.description.length > 100) {
+            Snackbar.make(it, R.string.error_descriptionLength, Snackbar.LENGTH_LONG)
+                .show()
+        }
+        else {
+            if (edit) {
+                app.thirdPlaces.update(thirdPlace.copy())
+            } else {
+                app.thirdPlaces.create(thirdPlace.copy())
+            }
+            setResult(RESULT_OK)
+            finish()
         }
         }
 

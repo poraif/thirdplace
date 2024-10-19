@@ -42,11 +42,25 @@ class ThirdPlaceJSONStore(private val context: Context) : ThirdPlaceStore {
 
 
     override fun update(thirdPlace: ThirdPlaceModel) {
-        // todo
+        val thirdplacesList = findAll() as ArrayList<ThirdPlaceModel>
+        var ThirdPlaceToUpdate: ThirdPlaceModel? = thirdplacesList.find { p -> p.id == thirdPlace.id }
+        if (ThirdPlaceToUpdate != null) {
+            ThirdPlaceToUpdate.title = thirdPlace.title
+            ThirdPlaceToUpdate.description = thirdPlace.description
+            ThirdPlaceToUpdate.image = thirdPlace.image
+            ThirdPlaceToUpdate.type = thirdPlace.type
+            ThirdPlaceToUpdate.amenities = thirdPlace.amenities
+            ThirdPlaceToUpdate.lat = thirdPlace.lat
+            ThirdPlaceToUpdate.lng = thirdPlace.lng
+            ThirdPlaceToUpdate.zoom = thirdPlace.zoom
+        }
+        serialize()
     }
 
     override fun delete(thirdPlace: ThirdPlaceModel) {
-        TODO("Not yet implemented")
+        thirdPlaces.remove(thirdPlace)
+        serialize()
+        Timber.i("Third Place Deleted: $thirdPlace")
     }
 
     private fun serialize() {

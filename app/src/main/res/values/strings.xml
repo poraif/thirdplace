@@ -21,6 +21,10 @@
     <!-- Menu -->
     <string name="menu_addPlace">Add</string>
     <string name="menu_cancel">Cancel</string>
+    <string name="menu_delete">Delete</string>
+    <string name="menu_update">Update</string>
+    <string name="menu_logout">Logout</string>
+
 
     <!-- Header messages -->
     <string name="header_addPlace">Add place</string>

@@ -14,6 +14,7 @@ import ie.por.thirdplace.models.ThirdPlaceModel
 import timber.log.Timber.i
 import ie.por.thirdplace.helpers.showImagePicker
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import com.squareup.picasso.Picasso
 import ie.por.thirdplace.R
@@ -25,7 +26,7 @@ class AddPlaceActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddplaceBinding
     var thirdPlace = ThirdPlaceModel()
     lateinit var app: MainApp
-    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var imageIntentLauncher : ActivityResultLauncher<PickVisualMediaRequest>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
 
 
@@ -103,7 +104,10 @@ class AddPlaceActivity : AppCompatActivity() {
         }
 
         binding.chooseImage.setOnClickListener {
-            showImagePicker(imageIntentLauncher)
+            val request = PickVisualMediaRequest.Builder()
+                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                .build()
+            imageIntentLauncher.launch(request)
         }
 
         binding.thirdPlaceLocation.setOnClickListener {
@@ -134,25 +138,25 @@ class AddPlaceActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-        private fun registerImagePickerCallback() {
-            imageIntentLauncher =
-                registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-                { result ->
-                    when(result.resultCode){
-                        RESULT_OK -> {
-                            if (result.data != null) {
-                                i("Got Result ${result.data!!.data}")
-                                thirdPlace.image = result.data!!.data!!
-                                Picasso.get()
-                                    .load(thirdPlace.image)
-                                    .into(binding.thirdPlaceImage)
-                                binding.chooseImage.setText(R.string.button_updateImage)
-                            }
-                        }
-                        RESULT_CANCELED -> { } else -> { }
-                    }
-                }
+    private fun registerImagePickerCallback() {
+        imageIntentLauncher = registerForActivityResult(
+            ActivityResultContracts.PickVisualMedia()
+        ) {
+            try{
+                contentResolver
+                    .takePersistableUriPermission(it!!,
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION )
+                thirdPlace.image = it // The returned Uri
+                i("IMG :: ${thirdPlace.image}")
+                Picasso.get()
+                    .load(thirdPlace.image)
+                    .into(binding.thirdPlaceImage)
+            }
+            catch(e:Exception){
+                e.printStackTrace()
+            }
         }
+    }
 
     private fun registerMapCallback() {
         mapIntentLauncher =

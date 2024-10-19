@@ -38,7 +38,7 @@ class ThirdPlaceMemStore : ThirdPlaceStore {
     }
 
         override fun delete(thirdPlace: ThirdPlaceModel) {
-            TODO("Not yet implemented")
+            thirdPlaces.remove(thirdPlace)
         }
 
         private fun logAll() {

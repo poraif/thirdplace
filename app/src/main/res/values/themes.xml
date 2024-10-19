@@ -2,6 +2,10 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.ThirdPlace" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
+
+        <!-- Set font -->
+        <item name="fontFamily">@font/afacad</item>
+
         <!-- app bars, buttons etc and text/icons overlaid -->
         <item name="colorPrimary">@color/orange</item>
         <item name="colorOnPrimary">@color/white</item>

@@ -13,7 +13,7 @@
     <string name="button_delete">Delete</string>
     <string name="button_update">Update</string>
     <string name="button_cancel">Cancel</string>
-    <string name="button_addImages">Add image</string>
+    <string name="button_addImage">Add image</string>
     <string name="button_updateImage">Update image</string>
     <string name="button_addLocation">Add location</string>
 

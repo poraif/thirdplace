@@ -30,6 +30,9 @@ class ThirdPlaceMemStore : ThirdPlaceStore {
             thirdPlaceToUpdate.amenities = thirdPlace.amenities
             thirdPlaceToUpdate.type = thirdPlace.type
             thirdPlaceToUpdate.image = thirdPlace.image
+            thirdPlaceToUpdate.lat = thirdPlace.lat
+            thirdPlaceToUpdate.lng = thirdPlace.lng
+            thirdPlaceToUpdate.zoom = thirdPlace.zoom
             logAll()
         }
     }

@@ -12,6 +12,7 @@ import ie.por.thirdplace.databinding.ActivityAddplaceBinding
 import ie.por.thirdplace.main.MainApp
 import ie.por.thirdplace.models.ThirdPlaceModel
 import timber.log.Timber.i
+import ie.por.thirdplace.helpers.showImagePicker
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.squareup.picasso.Picasso
@@ -26,12 +27,12 @@ class AddPlaceActivity : AppCompatActivity() {
     lateinit var app: MainApp
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
-    var location = Location(53.355100, -6.329700, 15f)
 
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityAddplaceBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -40,32 +41,6 @@ class AddPlaceActivity : AppCompatActivity() {
 
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
-
-        private fun registerImagePickerCallback() {
-            imageIntentLauncher =
-                registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-                { result ->
-                    when(result.resultCode){
-                        RESULT_OK -> {
-                            if (result.data != null) {
-                                i("Got Result ${result.data!!.data}")
-                                thirdPlace.image = result.data!!.data!!
-                                Picasso.get()
-                                    .load(thirdPlace.image)
-                                    .into(binding.thirdPlaceImage)
-                                binding.chooseImage.setText(R.string.button_updateImage)
-                            }
-                        }
-                        RESULT_CANCELED -> { } else -> { }
-                    }
-                }
-        }
-
-        private fun registerMapCallback() {
-            mapIntentLauncher =
-                registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-                { i("Map Loaded") }
-        }
 
         app = application as MainApp
         i("Third Place Activity started...")
@@ -82,10 +57,7 @@ class AddPlaceActivity : AppCompatActivity() {
             if (thirdPlace.image != Uri.EMPTY) {
                 binding.chooseImage.setText(R.string.button_updateImage)
             }
-            }
-
-
-
+        }
 
         binding.btnAddPlace.setOnClickListener {
             thirdPlace.title = binding.thirdPlaceTitle.text.toString()
@@ -107,39 +79,49 @@ class AddPlaceActivity : AppCompatActivity() {
             if (binding.checkboxAlwaysOpen.isChecked) selectedAmenities.add(getString(R.string.amenity_alwaysOpen))
             thirdPlace.amenities = selectedAmenities
 
-        if (thirdPlace.title.isEmpty() || thirdPlace.type.isEmpty()) {
-            Snackbar.make(it, R.string.error_titleTypeMissing, Snackbar.LENGTH_LONG)
-                .show()
-        }
-        if (thirdPlace.title.length > 25) {
-            Snackbar.make(it, R.string.error_titleLength, Snackbar.LENGTH_LONG)
-                .show()
-        }
-        if (thirdPlace.description.length > 100) {
-            Snackbar.make(it, R.string.error_descriptionLength, Snackbar.LENGTH_LONG)
-                .show()
-        }
-        else {
-            if (edit) {
-                app.thirdPlaces.update(thirdPlace.copy())
-            } else {
-                app.thirdPlaces.create(thirdPlace.copy())
+            if (thirdPlace.title.isEmpty() || thirdPlace.type.isEmpty()) {
+                Snackbar.make(it, R.string.error_titleTypeMissing, Snackbar.LENGTH_LONG)
+                    .show()
             }
-            setResult(RESULT_OK)
-            finish()
-        }
+            if (thirdPlace.title.length > 25) {
+                Snackbar.make(it, R.string.error_titleLength, Snackbar.LENGTH_LONG)
+                    .show()
+            }
+            if (thirdPlace.description.length > 100) {
+                Snackbar.make(it, R.string.error_descriptionLength, Snackbar.LENGTH_LONG)
+                    .show()
+            }
+            else {
+                if (edit) {
+                    app.thirdPlaces.update(thirdPlace.copy())
+                } else {
+                    app.thirdPlaces.create(thirdPlace.copy())
+                }
+                setResult(RESULT_OK)
+                finish()
+            }
         }
 
         binding.chooseImage.setOnClickListener {
-            i("Select image")
+            showImagePicker(imageIntentLauncher)
         }
 
         binding.thirdPlaceLocation.setOnClickListener {
+            val location = Location(52.245696, -7.139102, 15f)
+            if (thirdPlace.zoom != 0f) {
+                location.lat =  thirdPlace.lat
+                location.lng = thirdPlace.lng
+                location.zoom = thirdPlace.zoom
+            }
             val launcherIntent = Intent(this, MapActivity::class.java)
                 .putExtra("location", location)
             mapIntentLauncher.launch(launcherIntent)
         }
-    }
+
+        registerImagePickerCallback()
+        registerMapCallback()
+        }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_addplace, menu)
         return super.onCreateOptionsMenu(menu)
@@ -150,5 +132,47 @@ class AddPlaceActivity : AppCompatActivity() {
             R.id.item_cancel -> { finish() }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+        private fun registerImagePickerCallback() {
+            imageIntentLauncher =
+                registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+                { result ->
+                    when(result.resultCode){
+                        RESULT_OK -> {
+                            if (result.data != null) {
+                                i("Got Result ${result.data!!.data}")
+                                thirdPlace.image = result.data!!.data!!
+                                Picasso.get()
+                                    .load(thirdPlace.image)
+                                    .into(binding.thirdPlaceImage)
+                                binding.chooseImage.setText(R.string.button_updateImage)
+                            }
+                        }
+                        RESULT_CANCELED -> { } else -> { }
+                    }
+                }
+        }
+
+    private fun registerMapCallback() {
+        mapIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when (result.resultCode) {
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Location ${result.data.toString()}")
+                            // Requires API 33
+                            // location = result.data!!.extras?.getParcelable("location",Location::class.java)!!
+                            val location = result.data!!.extras?.getParcelable<Location>("location")!!
+                            i("Location == $location")
+                            thirdPlace.lat = location.lat
+                            thirdPlace.lng = location.lng
+                            thirdPlace.zoom = location.zoom
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
     }
 }

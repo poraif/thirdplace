@@ -3,6 +3,7 @@ package ie.por.thirdplace.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import ie.por.thirdplace.databinding.CardThirdplaceBinding
 import ie.por.thirdplace.models.ThirdPlaceModel
 
@@ -34,6 +35,7 @@ class ThirdPlaceAdapter constructor(private var thirdPlaces: List<ThirdPlaceMode
         fun bind(thirdPlace: ThirdPlaceModel, listener: ThirdPlaceListener) {
             binding.thirdPlaceTitle.text = thirdPlace.title
             binding.thirdPlaceType.text = thirdPlace.type
+            Picasso.get().load(thirdPlace.image).resize(200,200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onThirdPlaceClick(thirdPlace) }
         }
     }

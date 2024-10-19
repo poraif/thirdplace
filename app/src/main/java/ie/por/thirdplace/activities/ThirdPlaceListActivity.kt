@@ -31,8 +31,12 @@ class ThirdPlaceListActivity : AppCompatActivity(), ThirdPlaceListener {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter
-        ThirdPlaceAdapter(app.thirdPlaces.findAll(),this)
+        binding.recyclerView.adapter = ThirdPlaceAdapter(app.thirdPlaces.findAll(),this)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -54,11 +58,6 @@ class ThirdPlaceListActivity : AppCompatActivity(), ThirdPlaceListener {
                 notifyItemRangeChanged(0,app.thirdPlaces.findAll().size)
             }
         }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
 
     override fun onThirdPlaceClick(thirdPlace: ThirdPlaceModel) {
         val launcherIntent = Intent(this, AddPlaceActivity::class.java)

@@ -43,12 +43,20 @@ class ThirdPlaceListActivity : AppCompatActivity(), ThirdPlaceListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_add -> {
-                val launcherIntent = Intent(this, AddPlaceActivity::class.java)
+                val launcherIntent = Intent(this, ThirdplaceMapsActivity::class.java)
                 getResult.launch(launcherIntent)
+            }
+            R.id.item_map -> {
+                val launcherIntent = Intent(this, ThirdplaceMapsActivity::class.java)
+                mapIntentLauncher.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)
     }
+
+    private val mapIntentLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+        {  }
 
     private val getResult =
         registerForActivityResult(

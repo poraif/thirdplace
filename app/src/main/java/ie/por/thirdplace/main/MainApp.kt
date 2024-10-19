@@ -2,17 +2,19 @@ package ie.por.thirdplace.main
 
 import android.app.Application
 import ie.por.thirdplace.models.ThirdPlaceMemStore
+import ie.por.thirdplace.models.ThirdPlaceStore
 import ie.por.thirdplace.models.ThirdPlaceModel
 import timber.log.Timber
 import timber.log.Timber.i
 
 class MainApp : Application() {
 
-    val thirdPlaces = ThirdPlaceMemStore()
+    lateinit var thirdPlaces: ThirdPlaceStore
 
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
+        thirdPlaces = ThirdPlaceMemStore()
         i("Third Place started")
     }
 }

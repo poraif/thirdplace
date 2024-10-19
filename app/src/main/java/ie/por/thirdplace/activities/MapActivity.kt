@@ -1,6 +1,5 @@
 package ie.por.thirdplace.activities
 
-
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +18,7 @@ import ie.por.thirdplace.databinding.ActivityMapBinding
 import ie.por.thirdplace.models.Location
 
 @Suppress("DEPRECATION")
-class MapActivity : AppCompatActivity(), OnMapReadyCallback,  GoogleMap.OnMarkerDragListener,GoogleMap.OnMarkerClickListener {
+class MapActivity : AppCompatActivity(), OnMapReadyCallback,  GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
 
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivityMapBinding
@@ -55,7 +54,10 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,  GoogleMap.OnMarker
         map.setOnMarkerClickListener(this)
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, location.zoom))
     }
-    override fun onMarkerDrag(p0: Marker) {  }
+    override fun onMarkerDrag(marker: Marker) {
+        val loc = LatLng(location.lat, location.lng)
+        marker.snippet = "GPS : $loc"
+    }
 
     override fun onMarkerDragEnd(marker: Marker) {
         location.lat = marker.position.latitude

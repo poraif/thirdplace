@@ -162,8 +162,6 @@ class AddPlaceActivity : AppCompatActivity() {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Location ${result.data.toString()}")
-                            // Requires API 33
-                            // location = result.data!!.extras?.getParcelable("location",Location::class.java)!!
                             val location = result.data!!.extras?.getParcelable<Location>("location")!!
                             i("Location == $location")
                             thirdPlace.lat = location.lat

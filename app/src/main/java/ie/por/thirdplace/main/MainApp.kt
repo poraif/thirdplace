@@ -1,7 +1,7 @@
 package ie.por.thirdplace.main
 
 import android.app.Application
-import ie.por.thirdplace.models.ThirdPlaceMemStore
+import ie.por.thirdplace.models.ThirdPlaceJSONStore
 import ie.por.thirdplace.models.ThirdPlaceStore
 import ie.por.thirdplace.models.ThirdPlaceModel
 import timber.log.Timber
@@ -14,7 +14,7 @@ class MainApp : Application() {
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
-        thirdPlaces = ThirdPlaceMemStore()
+        thirdPlaces = ThirdPlaceJSONStore(applicationContext)
         i("Third Place started")
     }
 }

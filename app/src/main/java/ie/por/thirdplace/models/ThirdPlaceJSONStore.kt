@@ -19,7 +19,7 @@ fun generateRandomId(): Long {
     return Random().nextLong()
 }
 
-class PlacemarkJSONStore(private val context: Context) : ThirdPlaceStore {
+class ThirdPlaceJSONStore(private val context: Context) : ThirdPlaceStore {
 
     var thirdPlaces = mutableListOf<ThirdPlaceModel>()
 
@@ -43,6 +43,10 @@ class PlacemarkJSONStore(private val context: Context) : ThirdPlaceStore {
 
     override fun update(thirdPlace: ThirdPlaceModel) {
         // todo
+    }
+
+    override fun delete(thirdPlace: ThirdPlaceModel) {
+        TODO("Not yet implemented")
     }
 
     private fun serialize() {

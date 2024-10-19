@@ -2,6 +2,7 @@ package ie.por.thirdplace.activities
 
 import android.os.Bundle
 import android.content.Intent
+import android.net.Uri
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.RadioButton
@@ -15,6 +16,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.squareup.picasso.Picasso
 import ie.por.thirdplace.R
+import ie.por.thirdplace.models.Location
 
 @Suppress("DEPRECATION")
 class AddPlaceActivity : AppCompatActivity() {
@@ -23,25 +25,10 @@ class AddPlaceActivity : AppCompatActivity() {
     var thirdPlace = ThirdPlaceModel()
     lateinit var app: MainApp
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+    var location = Location(53.355100, -6.329700, 15f)
 
-    private fun registerImagePickerCallback() {
-        imageIntentLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { result ->
-                when(result.resultCode){
-                    RESULT_OK -> {
-                        if (result.data != null) {
-                            i("Got Result ${result.data!!.data}")
-                            thirdPlace.image = result.data!!.data!!
-                            Picasso.get()
-                                .load(thirdPlace.image)
-                                .into(binding.thirdPlaceImage)
-                        } // end of if
-                    }
-                    RESULT_CANCELED -> { } else -> { }
-                }
-            }
-    }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +40,32 @@ class AddPlaceActivity : AppCompatActivity() {
 
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
+
+        private fun registerImagePickerCallback() {
+            imageIntentLauncher =
+                registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+                { result ->
+                    when(result.resultCode){
+                        RESULT_OK -> {
+                            if (result.data != null) {
+                                i("Got Result ${result.data!!.data}")
+                                thirdPlace.image = result.data!!.data!!
+                                Picasso.get()
+                                    .load(thirdPlace.image)
+                                    .into(binding.thirdPlaceImage)
+                                binding.chooseImage.setText(R.string.button_updateImage)
+                            }
+                        }
+                        RESULT_CANCELED -> { } else -> { }
+                    }
+                }
+        }
+
+        private fun registerMapCallback() {
+            mapIntentLauncher =
+                registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+                { i("Map Loaded") }
+        }
 
         app = application as MainApp
         i("Third Place Activity started...")
@@ -66,7 +79,11 @@ class AddPlaceActivity : AppCompatActivity() {
             Picasso.get()
                 .load(thirdPlace.image)
                 .into(binding.thirdPlaceImage)
-        }
+            if (thirdPlace.image != Uri.EMPTY) {
+                binding.chooseImage.setText(R.string.button_updateImage)
+            }
+            }
+
 
 
 
@@ -115,6 +132,12 @@ class AddPlaceActivity : AppCompatActivity() {
 
         binding.chooseImage.setOnClickListener {
             i("Select image")
+        }
+
+        binding.thirdPlaceLocation.setOnClickListener {
+            val launcherIntent = Intent(this, MapActivity::class.java)
+                .putExtra("location", location)
+            mapIntentLauncher.launch(launcherIntent)
         }
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -34,6 +34,11 @@ class ThirdPlaceJSONStore(private val context: Context) : ThirdPlaceStore {
         return thirdPlaces
     }
 
+    override fun findById(id: Long): ThirdPlaceModel? {
+        val foundThirdPlace: ThirdPlaceModel? = thirdPlaces.find { it.id == id }
+        return foundThirdPlace
+    }
+
     override fun create(thirdPlace: ThirdPlaceModel) {
         thirdPlace.id = generateRandomId()
         thirdPlaces.add(thirdPlace)

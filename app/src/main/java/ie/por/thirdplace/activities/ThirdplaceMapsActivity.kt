@@ -11,7 +11,7 @@ import ie.por.thirdplace.databinding.ActivityThirdplaceMapsBinding
 import ie.por.thirdplace.databinding.ContentThirdplaceMapsBinding
 import ie.por.thirdplace.main.MainApp
 
-class ThirdplaceMapsActivity : AppCompatActivity() {
+class ThirdplaceMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityThirdplaceMapsBinding
@@ -44,6 +44,7 @@ class ThirdplaceMapsActivity : AppCompatActivity() {
             val options = MarkerOptions().title(it.title).position(loc)
             map.addMarker(options)?.tag = it.id
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
+            map.setOnMarkerClickListener(this)
         }
     }
 
@@ -71,4 +72,10 @@ override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     contentBinding.mapView.onSaveInstanceState(outState)
 }
+
+    override fun onMarkerClick(marker: Marker): Boolean {
+        contentBinding.currentTitle.text = marker.title
+
+        return false
+    }
 }

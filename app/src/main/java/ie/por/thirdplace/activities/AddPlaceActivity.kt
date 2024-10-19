@@ -28,6 +28,7 @@ class AddPlaceActivity : AppCompatActivity() {
     lateinit var app: MainApp
     private lateinit var imageIntentLauncher : ActivityResultLauncher<PickVisualMediaRequest>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+    var edit = false
 
 
 
@@ -37,8 +38,6 @@ class AddPlaceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddplaceBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        var edit = false
 
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
@@ -128,11 +127,17 @@ class AddPlaceActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_addplace, menu)
+        if (edit) menu.getItem(0).isVisible = true
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.item_delete -> {
+                setResult(99)
+                app.thirdPlaces.delete(thirdPlace)
+                finish()
+            }
             R.id.item_cancel -> { finish() }
         }
         return super.onOptionsItemSelected(item)

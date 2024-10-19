@@ -17,6 +17,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThirdPlace"
         tools:targetApi="33">
+        <activity
+            android:name=".activities.ThirdplaceMapsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ThirdPlace" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -26,7 +30,6 @@
             android:name=".activities.MapActivity"
             android:exported="false"
             android:label="@string/header_map" />
-
         <activity
             android:name=".activities.ThirdPlaceListActivity"
             android:exported="true">
@@ -45,7 +48,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
     </application>
 
 </manifest>

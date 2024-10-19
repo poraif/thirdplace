@@ -18,6 +18,7 @@ import ie.por.thirdplace.models.ThirdPlaceModel
 class ThirdPlaceListActivity : AppCompatActivity(), ThirdPlaceListener {
 
     lateinit var app: MainApp
+    private var position: Int = 0
     private lateinit var binding: ActivityThirdplaceListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,9 +60,10 @@ class ThirdPlaceListActivity : AppCompatActivity(), ThirdPlaceListener {
             }
         }
 
-    override fun onThirdPlaceClick(thirdPlace: ThirdPlaceModel) {
+    override fun onThirdPlaceClick(thirdPlace: ThirdPlaceModel, pos: Int) {
         val launcherIntent = Intent(this, AddPlaceActivity::class.java)
         launcherIntent.putExtra("thirdPlace_edit", thirdPlace)
+        position = pos
         getClickResult.launch(launcherIntent)
     }
 
@@ -70,6 +72,8 @@ class ThirdPlaceListActivity : AppCompatActivity(), ThirdPlaceListener {
             (binding.recyclerView.adapter)?.
             notifyItemRangeChanged(0,app.thirdPlaces.findAll().size)
         }
-
+        else
+            if (it.resultCode == 99)
+                (binding.recyclerView.adapter)?.notifyItemRemoved(position)
     }
 }

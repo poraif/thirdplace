@@ -8,7 +8,7 @@ import ie.por.thirdplace.databinding.CardThirdplaceBinding
 import ie.por.thirdplace.models.ThirdPlaceModel
 
 interface ThirdPlaceListener {
-    fun onThirdPlaceClick(thirdPlace: ThirdPlaceModel)
+    fun onThirdPlaceClick(thirdPlace: ThirdPlaceModel, position: Int)
 }
 
 class ThirdPlaceAdapter constructor(private var thirdPlaces: List<ThirdPlaceModel>,
@@ -36,7 +36,7 @@ class ThirdPlaceAdapter constructor(private var thirdPlaces: List<ThirdPlaceMode
             binding.thirdPlaceTitle.text = thirdPlace.title
             binding.thirdPlaceType.text = thirdPlace.type
             Picasso.get().load(thirdPlace.image).resize(200,200).into(binding.imageIcon)
-            binding.root.setOnClickListener { listener.onThirdPlaceClick(thirdPlace) }
+            binding.root.setOnClickListener { listener.onThirdPlaceClick(thirdPlace, adapterPosition) }
         }
     }
 }

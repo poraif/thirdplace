@@ -6,10 +6,11 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import ie.por.thirdplace.R
 import ie.por.thirdplace.main.MainApp
 import ie.por.thirdplace.models.ThirdPlaceModel
 import ie.por.thirdplace.models.Location
-import ie.por.thirdplace.views.editlocation.EditLocationView
+//import ie.por.thirdplace.views.editlocation.EditLocationView
 import timber.log.Timber
 
 class ThirdPlacePresenter(private val view: ThirdPlaceView) {
@@ -31,16 +32,38 @@ class ThirdPlacePresenter(private val view: ThirdPlaceView) {
         registerMapCallback()
     }
 
-    fun doAddOrSave(title: String, description: String) {
+    fun doAddOrSave(title: String, description: String, type: String, amenities: List<String>) {
         thirdPlace.title = title
         thirdPlace.description = description
-        if (edit) {
-            app.thirdPlaces.update(thirdPlace)
-        } else {
-            app.thirdPlaces.create(thirdPlace)
+        thirdPlace.type = type
+        thirdPlace.amenities = amenities
+        if (validateThirdPlace()) {
+            if (edit) {
+                app.thirdPlaces.update(thirdPlace)
+            } else {
+                app.thirdPlaces.create(thirdPlace)
+            }
+            view.setResult(RESULT_OK)
+            view.finish()
         }
-        view.setResult(RESULT_OK)
-        view.finish()
+    }
+
+    private fun validateThirdPlace(): Boolean {
+        when {
+            thirdPlace.title.isEmpty() -> {
+                view.showError(R.string.error_titleTypeMissing)
+                return false
+            }
+            thirdPlace.title.length > 25 -> {
+                view.showError(R.string.error_titleLength)
+                return false
+            }
+            thirdPlace.description.length > 100 -> {
+                view.showError(R.string.error_descriptionLength)
+                return false
+            }
+        }
+        return true
     }
 
     fun doCancel() {
@@ -61,17 +84,17 @@ class ThirdPlacePresenter(private val view: ThirdPlaceView) {
         imageIntentLauncher.launch(request)
     }
 
-    fun doSetLocation() {
-        val location = Location(52.245696, -7.139102, 15f)
-        if (thirdPlace.zoom != 0f) {
-            location.lat =  thirdPlace.lat
-            location.lng = thirdPlace.lng
-            location.zoom = thirdPlace.zoom
-        }
-        val launcherIntent = Intent(view, EditLocationView::class.java)
-            .putExtra("location", location)
-        mapIntentLauncher.launch(launcherIntent)
-    }
+//    fun doSetLocation() {
+//        val location = Location(52.245696, -7.139102, 15f)
+//        if (thirdPlace.zoom != 0f) {
+//            location.lat =  thirdPlace.lat
+//            location.lng = thirdPlace.lng
+//            location.zoom = thirdPlace.zoom
+//        }
+//        val launcherIntent = Intent(view, EditLocationView::class.java)
+//            .putExtra("location", location)
+//        mapIntentLauncher.launch(launcherIntent)
+//    }
 
     fun cacheThirdPlace (title: String, description: String) {
         thirdPlace.title = title

@@ -1,4 +1,4 @@
-package ie.por.thirdplace.activities
+package ie.por.thirdplace.views.thirdPlaceList
 
 import android.os.Bundle
 import android.view.Menu

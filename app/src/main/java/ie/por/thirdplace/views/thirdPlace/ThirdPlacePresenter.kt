@@ -1,4 +1,4 @@
-package ie.por.thirdplace.activities
+package ie.por.thirdplace.views.thirdPlace
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -10,7 +10,7 @@ import ie.por.thirdplace.R
 import ie.por.thirdplace.main.MainApp
 import ie.por.thirdplace.models.ThirdPlaceModel
 import ie.por.thirdplace.models.Location
-//import ie.por.thirdplace.views.editlocation.EditLocationView
+import ie.por.thirdplace.views.editLocation.EditLocationView
 import timber.log.Timber
 
 class ThirdPlacePresenter(private val view: ThirdPlaceView) {
@@ -84,17 +84,17 @@ class ThirdPlacePresenter(private val view: ThirdPlaceView) {
         imageIntentLauncher.launch(request)
     }
 
-//    fun doSetLocation() {
-//        val location = Location(52.245696, -7.139102, 15f)
-//        if (thirdPlace.zoom != 0f) {
-//            location.lat =  thirdPlace.lat
-//            location.lng = thirdPlace.lng
-//            location.zoom = thirdPlace.zoom
-//        }
-//        val launcherIntent = Intent(view, EditLocationView::class.java)
-//            .putExtra("location", location)
-//        mapIntentLauncher.launch(launcherIntent)
-//    }
+    fun doSetLocation() {
+        val location = Location(52.245696, -7.139102, 15f)
+        if (thirdPlace.zoom != 0f) {
+            location.lat =  thirdPlace.lat
+            location.lng = thirdPlace.lng
+            location.zoom = thirdPlace.zoom
+        }
+        val launcherIntent = Intent(view, EditLocationView::class.java)
+            .putExtra("location", location)
+        mapIntentLauncher.launch(launcherIntent)
+    }
 
     fun cacheThirdPlace (title: String, description: String) {
         thirdPlace.title = title

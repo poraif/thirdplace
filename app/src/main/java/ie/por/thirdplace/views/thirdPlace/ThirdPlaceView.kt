@@ -1,7 +1,6 @@
-package ie.por.thirdplace.activities
+package ie.por.thirdplace.views.thirdPlace
 
 import android.os.Bundle
-import android.content.Intent
 import android.net.Uri
 import android.view.Menu
 import android.view.MenuItem
@@ -9,15 +8,10 @@ import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import ie.por.thirdplace.databinding.ActivityAddplaceBinding
-import ie.por.thirdplace.main.MainApp
 import ie.por.thirdplace.models.ThirdPlaceModel
 import timber.log.Timber.i
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
 import com.squareup.picasso.Picasso
 import ie.por.thirdplace.R
-import ie.por.thirdplace.models.Location
 
 class ThirdPlaceView : AppCompatActivity() {
 

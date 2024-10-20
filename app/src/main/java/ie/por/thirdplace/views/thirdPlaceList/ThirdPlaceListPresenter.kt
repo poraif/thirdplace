@@ -1,11 +1,11 @@
-package ie.por.thirdplace.activities
+package ie.por.thirdplace.views.thirdPlaceList
 
 import android.app.Activity
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import ie.por.thirdplace.activities.ThirdplaceMapsActivity
-import ie.por.thirdplace.activities.ThirdPlaceView
+import ie.por.thirdplace.views.thirdPlaceMap.ThirdPlaceMapView
+import ie.por.thirdplace.views.thirdPlace.ThirdPlaceView
 import ie.por.thirdplace.main.MainApp
 import ie.por.thirdplace.models.ThirdPlaceModel
 
@@ -37,7 +37,7 @@ class ThirdPlaceListPresenter(val view: ThirdPlaceListView) {
     }
 
     fun doShowThirdPlacesMap() {
-        val launcherIntent = Intent(view, ThirdplaceMapsActivity::class.java)
+        val launcherIntent = Intent(view, ThirdPlaceMapView::class.java)
         mapIntentLauncher.launch(launcherIntent)
     }
 

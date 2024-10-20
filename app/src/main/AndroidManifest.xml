@@ -44,7 +44,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".activities.AddPlaceActivity">
+        <activity android:name=".activities.ThirdPlaceView">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

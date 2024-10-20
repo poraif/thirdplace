@@ -12,7 +12,6 @@ import ie.por.thirdplace.databinding.ActivityAddplaceBinding
 import ie.por.thirdplace.main.MainApp
 import ie.por.thirdplace.models.ThirdPlaceModel
 import timber.log.Timber.i
-import ie.por.thirdplace.helpers.showImagePicker
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -21,16 +20,11 @@ import ie.por.thirdplace.R
 import ie.por.thirdplace.models.Location
 
 @Suppress("DEPRECATION")
-class AddPlaceActivity : AppCompatActivity() {
+class ThirdPlaceView : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddplaceBinding
+    private lateinit var presenter: ThirdPlacePresenter
     var thirdPlace = ThirdPlaceModel()
-    lateinit var app: MainApp
-    private lateinit var imageIntentLauncher : ActivityResultLauncher<PickVisualMediaRequest>
-    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
-    var edit = false
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,22 +36,8 @@ class AddPlaceActivity : AppCompatActivity() {
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
 
-        app = application as MainApp
-        i("Third Place Activity started...")
+        presenter = ThirdPlacePresenter(this)
 
-        if (intent.hasExtra("thirdPlace_edit")) {
-            edit = true
-            thirdPlace = intent.extras?.getParcelable("thirdPlace_edit")!!
-            binding.thirdPlaceTitle.setText(thirdPlace.title)
-            binding.thirdPlaceDescription.setText(thirdPlace.description)
-            binding.btnAddPlace.setText(R.string.button_update)
-            Picasso.get()
-                .load(thirdPlace.image)
-                .into(binding.thirdPlaceImage)
-            if (thirdPlace.image != Uri.EMPTY) {
-                binding.chooseImage.setText(R.string.button_updateImage)
-            }
-        }
 
         binding.btnAddPlace.setOnClickListener {
             thirdPlace.title = binding.thirdPlaceTitle.text.toString()
@@ -103,83 +83,53 @@ class AddPlaceActivity : AppCompatActivity() {
         }
 
         binding.chooseImage.setOnClickListener {
-            val request = PickVisualMediaRequest.Builder()
-                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                .build()
-            imageIntentLauncher.launch(request)
+            presenter.cacheThirdPlace(binding.thirdPlaceTitle.text.toString(), binding.thirdPlaceDescription.text.toString())
+            presenter.doSelectImage()
         }
 
         binding.thirdPlaceLocation.setOnClickListener {
-            val location = Location(52.245696, -7.139102, 15f)
-            if (thirdPlace.zoom != 0f) {
-                location.lat =  thirdPlace.lat
-                location.lng = thirdPlace.lng
-                location.zoom = thirdPlace.zoom
-            }
-            val launcherIntent = Intent(this, MapActivity::class.java)
-                .putExtra("location", location)
-            mapIntentLauncher.launch(launcherIntent)
+            presenter.cacheThirdPlace(binding.thirdPlaceTitle.text.toString(), binding.thirdPlaceDescription.text.toString())
+            presenter.doSetLocation()
         }
 
-        registerImagePickerCallback()
-        registerMapCallback()
         }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_addplace, menu)
-        if (edit) menu.getItem(0).isVisible = true
+        val deleteMenu: MenuItem = menu.findItem(R.id.item_delete)
+        deleteMenu.isVisible = presenter.edit
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_delete -> {
-                setResult(99)
-                app.thirdPlaces.delete(thirdPlace)
-                finish()
+                presenter.doDelete()
             }
-            R.id.item_cancel -> { finish() }
+            R.id.item_cancel -> { presenter.doCancel()  }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun registerImagePickerCallback() {
-        imageIntentLauncher = registerForActivityResult(
-            ActivityResultContracts.PickVisualMedia()
-        ) {
-            try{
-                contentResolver
-                    .takePersistableUriPermission(it!!,
-                        Intent.FLAG_GRANT_READ_URI_PERMISSION )
-                thirdPlace.image = it // The returned Uri
-                i("IMG :: ${thirdPlace.image}")
-                Picasso.get()
-                    .load(thirdPlace.image)
-                    .into(binding.thirdPlaceImage)
-            }
-            catch(e:Exception){
-                e.printStackTrace()
-            }
+    fun showThirdPlace(thirdPlace: ThirdPlaceModel) {
+        binding.thirdPlaceTitle.setText(thirdPlace.title)
+        binding.thirdPlaceDescription.setText(thirdPlace.description)
+        binding.btnAddPlace.setText(R.string.button_addPlace)
+        Picasso.get()
+            .load(thirdPlace.image)
+            .into(binding.thirdPlaceImage)
+        if (thirdPlace.image != Uri.EMPTY) {
+            binding.chooseImage.setText(R.string.button_updateImage)
         }
+
     }
 
-    private fun registerMapCallback() {
-        mapIntentLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { result ->
-                when (result.resultCode) {
-                    RESULT_OK -> {
-                        if (result.data != null) {
-                            i("Got Location ${result.data.toString()}")
-                            val location = result.data!!.extras?.getParcelable<Location>("location")!!
-                            i("Location == $location")
-                            thirdPlace.lat = location.lat
-                            thirdPlace.lng = location.lng
-                            thirdPlace.zoom = location.zoom
-                        } // end of if
-                    }
-                    RESULT_CANCELED -> { } else -> { }
-                }
-            }
+    fun updateImage(image: Uri){
+        i("Image updated")
+        Picasso.get()
+            .load(image)
+            .into(binding.thirdPlaceImage)
+        binding.chooseImage.setText(R.string.button_updateImage)
     }
+
 }

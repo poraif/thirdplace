@@ -7,6 +7,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.squareup.picasso.Picasso
 import ie.por.thirdplace.databinding.ActivityThirdplaceMapsBinding
 import ie.por.thirdplace.databinding.ContentThirdplaceMapsBinding
 import ie.por.thirdplace.main.MainApp
@@ -74,8 +75,12 @@ override fun onSaveInstanceState(outState: Bundle) {
 }
 
     override fun onMarkerClick(marker: Marker): Boolean {
-        contentBinding.currentTitle.text = marker.title
-
+        //val placemark = marker.tag as PlacemarkModel
+        val tag = marker.tag as Long
+        val thirdPlace = app.thirdPlaces.findById(tag)
+        contentBinding.currentTitle.text = thirdPlace!!.title
+        contentBinding.currentDescription.text = thirdPlace.description
+        Picasso.get().load(thirdPlace.image).into(contentBinding.currentImage)
         return false
     }
 }

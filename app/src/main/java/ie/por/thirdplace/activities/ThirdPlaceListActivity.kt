@@ -69,7 +69,7 @@ class ThirdPlaceListActivity : AppCompatActivity(), ThirdPlaceListener {
         }
 
     override fun onThirdPlaceClick(thirdPlace: ThirdPlaceModel, pos: Int) {
-        val launcherIntent = Intent(this, AddPlaceActivity::class.java)
+        val launcherIntent = Intent(this, ThirdPlaceView::class.java)
         launcherIntent.putExtra("thirdPlace_edit", thirdPlace)
         position = pos
         getClickResult.launch(launcherIntent)

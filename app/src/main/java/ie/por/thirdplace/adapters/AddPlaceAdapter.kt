@@ -5,14 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import ie.por.thirdplace.databinding.CardThirdplaceBinding
-import ie.por.thirdplace.models.ThirdPlaceModel
+import ie.por.thirdplace.models.thirdplace.ThirdPlaceModel
 
 interface ThirdPlaceListener {
     fun onThirdPlaceClick(thirdPlace: ThirdPlaceModel, position: Int)
 }
 
 class ThirdPlaceAdapter constructor(private var thirdPlaces: List<ThirdPlaceModel>,
-                                   private val listener: ThirdPlaceListener) :
+                                    private val listener: ThirdPlaceListener) :
     RecyclerView.Adapter<ThirdPlaceAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {

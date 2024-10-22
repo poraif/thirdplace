@@ -8,7 +8,7 @@ import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import ie.por.thirdplace.databinding.ActivityAddplaceBinding
-import ie.por.thirdplace.models.ThirdPlaceModel
+import ie.por.thirdplace.models.thirdplace.ThirdPlaceModel
 import timber.log.Timber.i
 import com.squareup.picasso.Picasso
 import ie.por.thirdplace.R

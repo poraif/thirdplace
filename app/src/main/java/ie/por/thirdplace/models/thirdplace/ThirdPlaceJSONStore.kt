@@ -1,4 +1,4 @@
-package ie.por.thirdplace.models
+package ie.por.thirdplace.models.thirdplace
 
 import android.content.Context
 import android.net.Uri
@@ -15,8 +15,8 @@ val gsonBuilder: Gson = GsonBuilder().setPrettyPrinting()
     .create()
 val listType: Type = object : TypeToken<ArrayList<ThirdPlaceModel>>() {}.type
 
-fun generateRandomId(): Long {
-    return Random().nextLong()
+fun generateRandomId(): String {
+    return UUID.randomUUID().toString()
 }
 
 class ThirdPlaceJSONStore(private val context: Context) : ThirdPlaceStore {
@@ -34,9 +34,13 @@ class ThirdPlaceJSONStore(private val context: Context) : ThirdPlaceStore {
         return thirdPlaces
     }
 
-    override fun findById(id: Long): ThirdPlaceModel? {
+    override fun findById(id: String): ThirdPlaceModel? {
         val foundThirdPlace: ThirdPlaceModel? = thirdPlaces.find { it.id == id }
         return foundThirdPlace
+    }
+
+    override fun findByUserId(userId: String): List<ThirdPlaceModel> {
+        TODO("Not yet implemented")
     }
 
     override fun create(thirdPlace: ThirdPlaceModel) {
@@ -48,7 +52,8 @@ class ThirdPlaceJSONStore(private val context: Context) : ThirdPlaceStore {
 
     override fun update(thirdPlace: ThirdPlaceModel) {
         val thirdplacesList = findAll() as ArrayList<ThirdPlaceModel>
-        var ThirdPlaceToUpdate: ThirdPlaceModel? = thirdplacesList.find { p -> p.id == thirdPlace.id }
+        var ThirdPlaceToUpdate: ThirdPlaceModel? =
+            thirdplacesList.find { p -> p.id == thirdPlace.id }
         if (ThirdPlaceToUpdate != null) {
             ThirdPlaceToUpdate.title = thirdPlace.title
             ThirdPlaceToUpdate.description = thirdPlace.description
@@ -58,6 +63,7 @@ class ThirdPlaceJSONStore(private val context: Context) : ThirdPlaceStore {
             ThirdPlaceToUpdate.lat = thirdPlace.lat
             ThirdPlaceToUpdate.lng = thirdPlace.lng
             ThirdPlaceToUpdate.zoom = thirdPlace.zoom
+            ThirdPlaceToUpdate.userId = thirdPlace.userId
         }
         serialize()
     }
@@ -81,6 +87,7 @@ class ThirdPlaceJSONStore(private val context: Context) : ThirdPlaceStore {
     private fun logAll() {
         thirdPlaces.forEach { Timber.i("$it") }
     }
+
 }
 
 class UriParser : JsonDeserializer<Uri>,JsonSerializer<Uri> {
@@ -100,3 +107,4 @@ class UriParser : JsonDeserializer<Uri>,JsonSerializer<Uri> {
         return JsonPrimitive(src.toString())
     }
 }
+

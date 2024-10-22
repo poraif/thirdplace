@@ -7,7 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import ie.por.thirdplace.views.thirdPlaceMap.ThirdPlaceMapView
 import ie.por.thirdplace.views.thirdPlace.ThirdPlaceView
 import ie.por.thirdplace.main.MainApp
-import ie.por.thirdplace.models.ThirdPlaceModel
+import ie.por.thirdplace.models.thirdplace.ThirdPlaceModel
 
 class ThirdPlaceListPresenter(val view: ThirdPlaceListView) {
 

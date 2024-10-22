@@ -1,9 +1,8 @@
 package ie.por.thirdplace.main
 
 import android.app.Application
-import ie.por.thirdplace.models.ThirdPlaceJSONStore
-import ie.por.thirdplace.models.ThirdPlaceStore
-import ie.por.thirdplace.models.ThirdPlaceModel
+import ie.por.thirdplace.models.thirdplace.ThirdPlaceJSONStore
+import ie.por.thirdplace.models.thirdplace.ThirdPlaceStore
 import timber.log.Timber
 import timber.log.Timber.i
 

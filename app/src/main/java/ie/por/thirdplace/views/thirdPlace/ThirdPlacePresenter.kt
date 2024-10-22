@@ -8,8 +8,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import ie.por.thirdplace.R
 import ie.por.thirdplace.main.MainApp
-import ie.por.thirdplace.models.ThirdPlaceModel
-import ie.por.thirdplace.models.Location
+import ie.por.thirdplace.models.thirdplace.ThirdPlaceModel
+import ie.por.thirdplace.models.thirdplace.Location
 import ie.por.thirdplace.views.editLocation.EditLocationView
 import timber.log.Timber
 

@@ -8,7 +8,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.Marker
 import ie.por.thirdplace.R
-import ie.por.thirdplace.models.Location
+import ie.por.thirdplace.models.thirdplace.Location
 
 @Suppress("DEPRECATION")
 class EditLocationView : AppCompatActivity(), OnMapReadyCallback,  GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {

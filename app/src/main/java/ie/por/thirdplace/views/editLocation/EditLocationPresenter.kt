@@ -7,7 +7,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import ie.por.thirdplace.models.Location
+import ie.por.thirdplace.models.thirdplace.Location
 
 class EditLocationPresenter (val view: EditLocationView) {
 

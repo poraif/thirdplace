@@ -1,4 +1,4 @@
-package ie.por.thirdplace.models
+package ie.por.thirdplace.models.thirdplace
 
 import timber.log.Timber.i
 

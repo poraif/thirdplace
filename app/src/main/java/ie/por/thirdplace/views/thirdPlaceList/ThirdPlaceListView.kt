@@ -10,7 +10,7 @@ import ie.por.thirdplace.adapters.ThirdPlaceAdapter
 import ie.por.thirdplace.adapters.ThirdPlaceListener
 import ie.por.thirdplace.databinding.ActivityThirdplaceListBinding
 import ie.por.thirdplace.main.MainApp
-import ie.por.thirdplace.models.ThirdPlaceModel
+import ie.por.thirdplace.models.thirdplace.ThirdPlaceModel
 
 class ThirdPlaceListView : AppCompatActivity(), ThirdPlaceListener {
 

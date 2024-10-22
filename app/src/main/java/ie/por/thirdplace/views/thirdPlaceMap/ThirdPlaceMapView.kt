@@ -8,8 +8,7 @@ import com.squareup.picasso.Picasso
 import ie.por.thirdplace.databinding.ActivityThirdplaceMapsBinding
 import ie.por.thirdplace.databinding.ContentThirdplaceMapsBinding
 import ie.por.thirdplace.main.MainApp
-import ie.por.thirdplace.models.ThirdPlaceModel
-import ie.por.thirdplace.views.thirdPlace.ThirdPlacePresenter
+import ie.por.thirdplace.models.thirdplace.ThirdPlaceModel
 
 class ThirdPlaceMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
 

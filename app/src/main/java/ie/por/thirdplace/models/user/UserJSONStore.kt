@@ -9,7 +9,7 @@ import timber.log.Timber
 import java.lang.reflect.Type
 import java.util.*
 
-const val JSON_FILE = "users.json"
+const val USER_JSON_FILE = "users.json"
 val gsonBuilder: Gson = GsonBuilder().setPrettyPrinting()
     .registerTypeAdapter(Uri::class.java, UriParser())
     .create()
@@ -17,7 +17,6 @@ val listType: Type = object : TypeToken<ArrayList<UserModel>>() {}.type
 
 fun generateRandomId(): String {
     return UUID.randomUUID().toString()
-
 }
 
 class UserJSONStore(private val context: Context) : UserStore {
@@ -25,7 +24,7 @@ class UserJSONStore(private val context: Context) : UserStore {
     var users = mutableListOf<UserModel>()
 
     init {
-        if (exists(context, JSON_FILE)) {
+        if (exists(context, USER_JSON_FILE)) {
             deserialize()
         }
     }
@@ -51,7 +50,6 @@ class UserJSONStore(private val context: Context) : UserStore {
         serialize()
     }
 
-
     override fun update(user: UserModel) {
         val usersList = findAll() as ArrayList<UserModel>
         var userToUpdate: UserModel? =
@@ -68,16 +66,16 @@ class UserJSONStore(private val context: Context) : UserStore {
     override fun delete(user: UserModel) {
         users.remove(user)
         serialize()
-        Timber.i("Third Place Deleted: $user")
+        Timber.i("User Deleted: $user")
     }
 
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(users, listType)
-        write(context, JSON_FILE, jsonString)
+        write(context, USER_JSON_FILE, jsonString)
     }
 
     private fun deserialize() {
-        val jsonString = read(context, JSON_FILE)
+        val jsonString = read(context, USER_JSON_FILE)
         users = gsonBuilder.fromJson(jsonString, listType)
     }
 

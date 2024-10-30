@@ -1,11 +1,11 @@
 package ie.por.thirdplace.models.thirdplace
 
 import timber.log.Timber.i
+import java.util.UUID
 
-var lastId = 0L
 
-internal fun getId(): Long {
-    return lastId++
+internal fun getId(): String {
+    return UUID.randomUUID().toString()
 }
 
 class ThirdPlaceMemStore : ThirdPlaceStore {
@@ -16,10 +16,18 @@ class ThirdPlaceMemStore : ThirdPlaceStore {
         return thirdPlaces
     }
 
-    override fun findById(id: Long): ThirdPlaceModel? {
-        val foundThirdPlace: ThirdPlaceModel? = thirdPlaces.find { it.id == id }
-        return foundThirdPlace
+    override fun findById(id: String): ThirdPlaceModel? {
+        TODO("Not yet implemented")
     }
+
+    override fun findByUserId(userId: String): List<ThirdPlaceModel> {
+        TODO("Not yet implemented")
+    }
+
+//    override fun findById(id: String): ThirdPlaceModel? {
+//        val foundThirdPlace: ThirdPlaceModel? = thirdPlaces.find { it.id == id }
+//        return foundThirdPlace
+//    }
 
     override fun create(thirdPlace: ThirdPlaceModel) {
         thirdPlace.id = getId()

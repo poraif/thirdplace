@@ -1,63 +1,78 @@
 package ie.por.thirdplace.views.login
 
-import android.app.Activity.RESULT_OK
+import android.app.Activity
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
-import ie.por.thirdplace.R
 import ie.por.thirdplace.main.MainApp
-import ie.por.thirdplace.models.thirdplace.ThirdPlaceModel
-import ie.por.thirdplace.models.thirdplace.Location
 import ie.por.thirdplace.models.user.UserModel
-import ie.por.thirdplace.views.editLocation.EditLocationView
-import timber.log.Timber
-import android.util.Patterns
 import ie.por.thirdplace.views.login.LoginView
+import ie.por.thirdplace.models.user.UserStore
+import android.util.Patterns
+import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
+import ie.por.thirdplace.R
+import ie.por.thirdplace.models.user.UserJSONStore
+import ie.por.thirdplace.views.thirdPlaceMap.ThirdPlaceMapView
 
-class LoginPresenter(private val view: LoginView) {
+class LoginPresenter(val view: LoginView) {
 
-    var user = UserModel()
-    var app: MainApp = view.application as MainApp
+    var app: MainApp
+    private val userStore: UserJSONStore
 
-
-    fun login(email: String, password: String) {
-        user.email = email
-        user.password = password
-        if (validateUser()) {
-            view.setResult(RESULT_OK)
-            view.finish()
-        }
+    init {
+        app = view.application as MainApp
+        userStore = UserJSONStore(view.applicationContext)
+        registerLoginCallback()
     }
 
-    fun validateUser(): Boolean {
+
+    private lateinit var loginResultLauncher: ActivityResultLauncher<Intent>
+
+
+    private fun registerLoginCallback() {
+        loginResultLauncher =
+            view.registerForActivityResult(
+                ActivityResultContracts.StartActivityForResult()
+            ) {
+                if (it.resultCode == Activity.RESULT_OK) showLoginSuccess()
+                else
+                    view.showError(R.string.error_login)
+            }
+    }
+
+
+    private fun showLoginSuccess() {
+        Snackbar.make(view.binding.root, R.string.success_signup, Snackbar.LENGTH_LONG).show()
+    }
+
+
+    fun doLogin(email: String, password: String) {
         when {
-            user.email.isEmpty() -> {
-                view.showError(R.string.error_titleTypeMissing)
-                return false
+            email.isBlank() || password.isBlank() -> {
+                view.showError(R.string.error_emptyFields)
+                return
             }
-            user.email.length > 25 -> {
-                view.showError(R.string.error_titleLength)
-                return false
+            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
+                view.showError(R.string.error_email)
+                return
             }
-            !Patterns.EMAIL_ADDRESS.matcher(user.email).matches() -> {
-                view.showError(R.string.error_emailInvalid)
-                return false
-            }
-            user.password.length > 25 -> {
-                view.showError(R.string.error_titleLength)
-                return false
-            }
-            user.email != app.user.email -> {
+            userStore.findByEmail(email) == null -> {
                 view.showError(R.string.error_emailNotFound)
-                return false
+                return
             }
-            user.password != app.user.password -> {
-                view.showError(R.string.error_passwordIncorrect)
+            userStore.findByEmail(email)?.password != password -> {
+                view.showError(R.string.error_password)
+                return
             }
-
+            else -> {
+                val user = userStore.findByEmail(email)
+                if (user != null) { // Check if user is not null before accessing
+                    app.loggedInUser = user
+                    val launcherIntent = Intent(view, ThirdPlaceMapView::class.java)
+                    loginResultLauncher.launch(launcherIntent)
+                }
+            }
         }
-        return true
-}
     }
+}

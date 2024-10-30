@@ -18,9 +18,13 @@
         android:theme="@style/Theme.ThirdPlace"
         tools:targetApi="33">
         <activity
-            android:name=".ui.login.LoginView"
+            android:name=".views.signup.SignupView"
             android:exported="false"
-            android:label="@string/title_activity_login_view" />
+            android:label="@string/header_signup" />
+        <activity
+            android:name=".views.login.LoginView"
+            android:exported="false"
+            android:label="@string/header_login" />
         <activity
             android:name=".views.thirdPlaceMap.ThirdPlaceMapView"
             android:exported="false"

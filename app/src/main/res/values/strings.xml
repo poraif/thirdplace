@@ -81,6 +81,16 @@
     <string name="error_emptyFields">Please fill in all fields</string>
     <string name="error_email">Please enter a valid email address</string>
     <string name="error_password">Password does not match</string>
+    <string name="error_signup">Signup was unsuccessful.</string>
+    <string name="error_emailUsed">This email is already registered.</string>
+    <string name="error_login">Login was unsuccessful.</string>
+    <string name="error_emailNotFound">Email not found.</string>
+
+    <!-- Success messages -->
+    <string name="success_signup">Signup was successful.</string>
+    <string name="success_login">Login was successful.</string>
+
+
 
 
     <string name="next">Next</string>

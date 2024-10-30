@@ -12,21 +12,23 @@ import android.util.Patterns
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import ie.por.thirdplace.R
+import ie.por.thirdplace.models.user.UserJSONStore
+import ie.por.thirdplace.views.thirdPlaceMap.ThirdPlaceMapView
 
 class SignupPresenter(val view: SignupView) {
 
     var app: MainApp
+    private val userStore: UserJSONStore
 
     init {
         app = view.application as MainApp
+        userStore = UserJSONStore(view.applicationContext)
+        registerSignupCallback()
     }
 
 
     private lateinit var signupResultLauncher: ActivityResultLauncher<Intent>
 
-    init {
-        registerSignupCallback()
-    }
 
     private fun registerSignupCallback() {
         signupResultLauncher =
@@ -35,44 +37,38 @@ class SignupPresenter(val view: SignupView) {
             ) {
                 if (it.resultCode == Activity.RESULT_OK) showSignupSuccess()
                 else
-                    showSignupError("Signup was unsuccessful.")
+                    view.showError(R.string.error_signup)
             }
     }
 
 
 
     fun doSignup(name: String, email: String, password: String) {
-        if (name.isBlank() || email.isBlank() || password.isBlank()) {
-            showValidationError("All fields are required.")
-            return
+        when {
+            name.isBlank() || email.isBlank() || password.isBlank() -> {
+                view.showError(R.string.error_emptyFields)
+                return
+            }
+            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
+                view.showError(R.string.error_email)
+                return
+            }
+            userStore.findByEmail(email) != null -> {
+                view.showError(R.string.error_emailUsed)
+                return
+            }
+            else -> {
+                val newUser = UserModel(name, email, password)
+                userStore.create(newUser)
+                val launcherIntent = Intent(view, ThirdPlaceMapView::class.java)
+                signupResultLauncher.launch(launcherIntent)
+            }
         }
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            showValidationError("Invalid email address.")
-            return
-        }
-        if (UserStore.findByEmail(email) != null) {
-            showSignupError("This email is already registered.")
-            return
-        }
-
-        val newUser = UserModel(name, email, password)
-        UserStore.create(newUser)
-
-        val launcherIntent = Intent(view.getContext()
-        signupResultLauncher.launch(launcherIntent)
     }
 
 
-    fun showSignupSuccess() {
-        Snackbar.make(binding.root, R.string.error_titleTypeMissing, Snackbar.LENGTH_LONG).show()
-        // show new screen
+    private fun showSignupSuccess() {
+        Snackbar.make(view.binding.root, R.string.success_signup, Snackbar.LENGTH_LONG).show()
     }
 
-    fun showSignupError(message: String) {
-        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show()
-    }
-
-    fun showValidationError(message: String) {
-        Snackbar.make(this, "Validation Error: $message", Snackbar.LENGTH_LONG).show()
-    }
 }

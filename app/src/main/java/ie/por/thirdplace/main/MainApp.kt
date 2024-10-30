@@ -13,6 +13,7 @@ class MainApp : Application() {
 
     lateinit var thirdPlaces: ThirdPlaceStore
     lateinit var user: UserStore
+    var loggedInUser: UserModel? = null // Add this property for the logged-in user
 
     override fun onCreate() {
         super.onCreate()

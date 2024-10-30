@@ -26,6 +26,7 @@
         android:id="@+id/emailField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:autofillHints="email"
         android:hint="@string/hint_userEmail"
         android:inputType="textEmailAddress" />
 

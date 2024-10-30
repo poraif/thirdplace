@@ -26,7 +26,7 @@ class ThirdPlaceMapPresenter(val view: ThirdPlaceMapView) {
     }
 
     fun doMarkerSelected(marker: Marker) {
-        val tag = marker.tag as Long
+        val tag = marker.tag as String
         val thirdPlace = app.thirdPlaces.findById(tag)
         if (thirdPlace != null) view.showThirdPlace(thirdPlace)
     }

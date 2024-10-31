@@ -8,7 +8,6 @@
     android:layout_height="match_parent"
     tools:context=".views.login.LoginView">
 
-    <!-- AppBar Layout -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -26,7 +25,6 @@
             app:titleTextColor="@color/orange" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Email Field -->
     <EditText
         android:id="@+id/emailField"
         android:layout_width="0dp"
@@ -38,7 +36,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="32dp"/>
 
-    <!-- Password Field -->
     <EditText
         android:id="@+id/passwordField"
         android:layout_width="0dp"
@@ -50,7 +47,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>
 
-    <!-- Login Button -->
     <Button
         android:id="@+id/loginButton"
         android:layout_width="0dp"

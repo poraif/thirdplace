@@ -54,10 +54,10 @@ class ThirdPlaceView : AppCompatActivity() {
             presenter.doSelectImage()
         }
 
-//        binding.thirdPlaceLocation.setOnClickListener {
-//            presenter.cacheThirdPlace(binding.thirdPlaceTitle.text.toString(), binding.thirdPlaceDescription.text.toString())
-//            presenter.doSetLocation()
-//        }
+        binding.thirdPlaceLocation.setOnClickListener {
+            presenter.cacheThirdPlace(binding.thirdPlaceTitle.text.toString(), binding.thirdPlaceDescription.text.toString())
+            presenter.doSetLocation()
+        }
 
         }
 
@@ -82,7 +82,7 @@ class ThirdPlaceView : AppCompatActivity() {
     }
 
     fun showError(messageResId: Int) {
-        Snackbar.make(binding.root, R.string.error_titleTypeMissing, Snackbar.LENGTH_LONG).show()
+        Snackbar.make(binding.root, messageResId, Snackbar.LENGTH_LONG).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -9,13 +9,11 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import ie.por.thirdplace.models.thirdplace.Location
 
-class EditLocationPresenter (val view: EditLocationView) {
+class EditLocationPresenter(val view: EditLocationView) {
 
     var location = Location()
 
     init {
-        //location = view.intent.extras?.getParcelable("location",Location::class.java)!!
-        @Suppress("DEPRECATION")
         location = view.intent.extras?.getParcelable("location")!!
     }
 

@@ -89,6 +89,8 @@
     <!-- Success messages -->
     <string name="success_signup">Signup was successful.</string>
     <string name="success_login">Login was successful.</string>
+    <string name="success_locationUpdate">Location was updated. Click back when finished.</string>
+
 
 
 

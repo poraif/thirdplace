@@ -7,6 +7,7 @@ import com.google.android.gms.maps.model.Marker
 import com.squareup.picasso.Picasso
 import ie.por.thirdplace.databinding.ActivityThirdplaceMapsBinding
 import ie.por.thirdplace.databinding.ContentThirdplaceMapsBinding
+import ie.por.thirdplace.helpers.AuthHelper
 import ie.por.thirdplace.main.MainApp
 import ie.por.thirdplace.models.thirdplace.ThirdPlaceModel
 
@@ -21,6 +22,7 @@ class ThirdPlaceMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
         super.onCreate(savedInstanceState)
 
         app = application as MainApp
+        AuthHelper.checkLogin(this)
 
         binding = ActivityThirdplaceMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)

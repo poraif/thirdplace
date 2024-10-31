@@ -9,6 +9,7 @@ import ie.por.thirdplace.R
 import ie.por.thirdplace.adapters.ThirdPlaceAdapter
 import ie.por.thirdplace.adapters.ThirdPlaceListener
 import ie.por.thirdplace.databinding.ActivityThirdplaceListBinding
+import ie.por.thirdplace.helpers.AuthHelper
 import ie.por.thirdplace.main.MainApp
 import ie.por.thirdplace.models.thirdplace.ThirdPlaceModel
 
@@ -27,7 +28,9 @@ class ThirdPlaceListView : AppCompatActivity(), ThirdPlaceListener {
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
         presenter = ThirdPlaceListPresenter(this)
+
         app = application as MainApp
+        AuthHelper.checkLogin(this)
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager

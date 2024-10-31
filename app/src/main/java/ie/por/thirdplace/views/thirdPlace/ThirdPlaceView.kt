@@ -12,6 +12,7 @@ import ie.por.thirdplace.models.thirdplace.ThirdPlaceModel
 import timber.log.Timber.i
 import com.squareup.picasso.Picasso
 import ie.por.thirdplace.R
+import ie.por.thirdplace.helpers.AuthHelper
 
 class ThirdPlaceView : AppCompatActivity() {
 
@@ -25,6 +26,8 @@ class ThirdPlaceView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddplaceBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        AuthHelper.checkLogin(this)
 
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)

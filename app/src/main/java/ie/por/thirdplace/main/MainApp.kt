@@ -13,7 +13,12 @@ class MainApp : Application() {
 
     lateinit var thirdPlaces: ThirdPlaceStore
     lateinit var user: UserStore
-    var loggedInUser: UserModel? = null // Add this property for the logged-in user
+    var loggedInUser: UserModel? = null
+
+    fun isLoggedIn(): Boolean {
+        val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
+        return sharedPreferences.getBoolean("isLoggedIn", false)
+    }
 
     override fun onCreate() {
         super.onCreate()

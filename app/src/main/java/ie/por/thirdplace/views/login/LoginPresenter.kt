@@ -90,7 +90,9 @@ class LoginPresenter(val view: LoginView) {
         app.loggedInUser = null
 
         val logoutIntent = Intent(view, LoginView::class.java)
-        logoutIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK // Clear activity stack
+
+        //found online, clears activity stack and starts new one
+        logoutIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         view.startActivity(logoutIntent)
         view.finish()
     }

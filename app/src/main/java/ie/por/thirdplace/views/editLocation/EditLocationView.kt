@@ -9,8 +9,8 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.Marker
 import ie.por.thirdplace.R
 import ie.por.thirdplace.models.thirdplace.Location
+import ie.por.thirdplace.helpers.*
 
-@Suppress("DEPRECATION")
 class EditLocationView : AppCompatActivity(), OnMapReadyCallback,  GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
 
     private lateinit var map: GoogleMap
@@ -18,6 +18,7 @@ class EditLocationView : AppCompatActivity(), OnMapReadyCallback,  GoogleMap.OnM
     private var location = Location()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AuthHelper.checkLogin(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
         presenter = EditLocationPresenter(this)

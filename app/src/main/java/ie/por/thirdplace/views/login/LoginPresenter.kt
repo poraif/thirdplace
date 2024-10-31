@@ -19,6 +19,8 @@ class LoginPresenter(val view: LoginView) {
 
     var app: MainApp
     private val userStore: UserJSONStore
+    private lateinit var loginResultLauncher: ActivityResultLauncher<Intent>
+
 
     init {
         app = view.application as MainApp
@@ -26,8 +28,6 @@ class LoginPresenter(val view: LoginView) {
         registerLoginCallback()
     }
 
-
-    private lateinit var loginResultLauncher: ActivityResultLauncher<Intent>
 
 
     private fun registerLoginCallback() {
@@ -45,7 +45,12 @@ class LoginPresenter(val view: LoginView) {
     private fun showLoginSuccess() {
         val sharedPreferences = view.applicationContext.getSharedPreferences("user_prefs", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putBoolean("isLoggedIn", true).apply()
+        editor.putBoolean("isLoggedIn", true)
+        editor.apply()
+
+        val loginIntent = Intent(view, ThirdPlaceListView::class.java)
+        loginIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK // Clear back stack
+        view.startActivity(loginIntent)
 
         Snackbar.make(view.binding.root, R.string.success_signup, Snackbar.LENGTH_LONG).show()
         view.finish()
@@ -75,8 +80,7 @@ class LoginPresenter(val view: LoginView) {
                 val user = userStore.findByEmail(email)
                 if (user != null) {
                     app.loggedInUser = user
-                    val launcherIntent = Intent(view, ThirdPlaceListView::class.java)
-                    loginResultLauncher.launch(launcherIntent)
+                    showLoginSuccess()
                 }
             }
         }
@@ -90,7 +94,6 @@ class LoginPresenter(val view: LoginView) {
         app.loggedInUser = null
 
         val logoutIntent = Intent(view, LoginView::class.java)
-
         //found online, clears activity stack and starts new one
         logoutIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         view.startActivity(logoutIntent)

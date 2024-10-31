@@ -1,24 +1,17 @@
 package ie.por.thirdplace.views.signup
 
-import android.content.Context
 import android.content.Intent
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import ie.por.thirdplace.R
-import ie.por.thirdplace.main.MainApp
-import ie.por.thirdplace.models.user.UserJSONStore
 import com.google.android.material.snackbar.Snackbar
-import ie.por.thirdplace.views.signup.SignupPresenter
-import ie.por.thirdplace.views.signup.SignupView
+import ie.por.thirdplace.R
 import ie.por.thirdplace.databinding.ActivitySignupBinding
+import ie.por.thirdplace.main.MainApp
 import ie.por.thirdplace.models.user.UserModel
 import ie.por.thirdplace.views.login.LoginView
+import timber.log.Timber.i
 
 class SignupView : AppCompatActivity() {
 
@@ -47,8 +40,11 @@ class SignupView : AppCompatActivity() {
                 user.email,
                 user.password
             )
+            i("User signed up: ${user.name}")
         }
     }
+
+
 
     fun showError(messageResId: Int) {
         Snackbar.make(binding.root, messageResId, Snackbar.LENGTH_LONG).show()

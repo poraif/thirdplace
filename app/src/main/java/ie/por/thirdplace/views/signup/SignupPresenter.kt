@@ -13,7 +13,10 @@ import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import ie.por.thirdplace.R
 import ie.por.thirdplace.models.user.UserJSONStore
+import ie.por.thirdplace.views.login.LoginView
 import ie.por.thirdplace.views.thirdPlaceMap.ThirdPlaceMapView
+import timber.log.Timber.i
+import timber.log.Timber
 
 class SignupPresenter(val view: SignupView) {
 
@@ -60,7 +63,7 @@ class SignupPresenter(val view: SignupView) {
             else -> {
                 val newUser = UserModel(name, email, password)
                 userStore.create(newUser)
-                val launcherIntent = Intent(view, ThirdPlaceMapView::class.java)
+                val launcherIntent = Intent(view, LoginView::class.java)
                 signupResultLauncher.launch(launcherIntent)
             }
         }
@@ -69,6 +72,7 @@ class SignupPresenter(val view: SignupView) {
 
     private fun showSignupSuccess() {
         Snackbar.make(view.binding.root, R.string.success_signup, Snackbar.LENGTH_LONG).show()
+        view.finish()
     }
 
 }

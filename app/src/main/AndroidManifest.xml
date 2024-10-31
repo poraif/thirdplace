@@ -19,8 +19,13 @@
         tools:targetApi="33">
         <activity
             android:name=".views.signup.SignupView"
-            android:exported="false"
-            android:label="@string/header_signup" />
+            android:exported="true"
+            android:label="@string/header_signup">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".views.login.LoginView"
             android:exported="false"
@@ -42,12 +47,6 @@
         <activity
             android:name=".views.thirdPlaceList.ThirdPlaceListView"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

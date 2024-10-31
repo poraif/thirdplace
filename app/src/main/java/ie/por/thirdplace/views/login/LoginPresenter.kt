@@ -2,18 +2,18 @@ package ie.por.thirdplace.views.login
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
+import android.util.Patterns
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import ie.por.thirdplace.main.MainApp
-import ie.por.thirdplace.models.user.UserModel
-import ie.por.thirdplace.views.login.LoginView
-import ie.por.thirdplace.models.user.UserStore
-import android.util.Patterns
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import com.google.android.material.snackbar.Snackbar
 import ie.por.thirdplace.R
+import ie.por.thirdplace.main.MainApp
 import ie.por.thirdplace.models.user.UserJSONStore
-import ie.por.thirdplace.views.thirdPlaceMap.ThirdPlaceMapView
+import ie.por.thirdplace.views.thirdPlace.ThirdPlaceView
+import ie.por.thirdplace.views.thirdPlaceList.ThirdPlaceListView
+
 
 class LoginPresenter(val view: LoginView) {
 
@@ -43,8 +43,14 @@ class LoginPresenter(val view: LoginView) {
 
 
     private fun showLoginSuccess() {
+        val sharedPreferences = view.applicationContext.getSharedPreferences("user_prefs", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("isLoggedIn", true).apply()
+
         Snackbar.make(view.binding.root, R.string.success_signup, Snackbar.LENGTH_LONG).show()
+        view.finish()
     }
+
 
 
     fun doLogin(email: String, password: String) {
@@ -67,12 +73,25 @@ class LoginPresenter(val view: LoginView) {
             }
             else -> {
                 val user = userStore.findByEmail(email)
-                if (user != null) { // Check if user is not null before accessing
+                if (user != null) {
                     app.loggedInUser = user
-                    val launcherIntent = Intent(view, ThirdPlaceMapView::class.java)
+                    val launcherIntent = Intent(view, ThirdPlaceListView::class.java)
                     loginResultLauncher.launch(launcherIntent)
                 }
             }
         }
+    }
+
+    fun doLogout() {
+        val sharedPreferences = view.applicationContext.getSharedPreferences("user_prefs", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.clear().apply()
+
+        app.loggedInUser = null
+
+        val logoutIntent = Intent(view, LoginView::class.java)
+        logoutIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK // Clear activity stack
+        view.startActivity(logoutIntent)
+        view.finish()
     }
 }

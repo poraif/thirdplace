@@ -52,18 +52,18 @@ class ThirdPlaceJSONStore(private val context: Context) : ThirdPlaceStore {
 
     override fun update(thirdPlace: ThirdPlaceModel) {
         val thirdplacesList = findAll() as ArrayList<ThirdPlaceModel>
-        var ThirdPlaceToUpdate: ThirdPlaceModel? =
+        var thirdPlaceToUpdate: ThirdPlaceModel? =
             thirdplacesList.find { p -> p.id == thirdPlace.id }
-        if (ThirdPlaceToUpdate != null) {
-            ThirdPlaceToUpdate.title = thirdPlace.title
-            ThirdPlaceToUpdate.description = thirdPlace.description
-            ThirdPlaceToUpdate.image = thirdPlace.image
-            ThirdPlaceToUpdate.type = thirdPlace.type
-            ThirdPlaceToUpdate.amenities = thirdPlace.amenities
-            ThirdPlaceToUpdate.lat = thirdPlace.lat
-            ThirdPlaceToUpdate.lng = thirdPlace.lng
-            ThirdPlaceToUpdate.zoom = thirdPlace.zoom
-            ThirdPlaceToUpdate.userId = thirdPlace.userId
+        if (thirdPlaceToUpdate != null) {
+            thirdPlaceToUpdate.title = thirdPlace.title
+            thirdPlaceToUpdate.description = thirdPlace.description
+            thirdPlaceToUpdate.image = thirdPlace.image
+            thirdPlaceToUpdate.type = thirdPlace.type
+            thirdPlaceToUpdate.amenities = thirdPlace.amenities
+            thirdPlaceToUpdate.lat = thirdPlace.lat
+            thirdPlaceToUpdate.lng = thirdPlace.lng
+            thirdPlaceToUpdate.zoom = thirdPlace.zoom
+            thirdPlaceToUpdate.userId = thirdPlace.userId
         }
         serialize()
     }

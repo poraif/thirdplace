@@ -28,6 +28,10 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
     </style>
+    <style name="Theme.ThirdPlace.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/colorSurface</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo</item>
+    </style>
 
     <style name="Theme.ThirdPlace" parent="Base.Theme.ThirdPlace" />
 </resources>

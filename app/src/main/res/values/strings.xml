@@ -92,9 +92,6 @@
     <string name="success_locationUpdate">Location was updated. Click back when finished.</string>
 
 
-
-
-
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="title_activity_login_view">LoginView</string>

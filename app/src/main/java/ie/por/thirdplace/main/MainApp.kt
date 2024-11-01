@@ -27,16 +27,6 @@ class MainApp : Application() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
 
-        if (isLoggedIn()) {
-            val loggedInIntent = Intent(this, ThirdPlaceListView::class.java)
-            loggedInIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(loggedInIntent)
-        } else {
-            val logInIntent = Intent(this, LoginView::class.java)
-            logInIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(logInIntent)
-        }
-
         thirdPlaces = ThirdPlaceJSONStore(applicationContext)
         user = UserJSONStore(applicationContext)
         i("Third Place started")

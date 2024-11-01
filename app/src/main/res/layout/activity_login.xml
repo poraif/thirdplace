@@ -8,28 +8,33 @@
     android:layout_height="match_parent"
     tools:context=".views.login.LoginView">
 
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/turquoise"
+        android:background="@color/colorPrimary"
         android:fitsSystemWindows="true"
         app:elevation="0dp"
-        app:theme="@style/ThemeOverlay.Material3.Dark.ActionBar"
-        app:layout_constraintTop_toTopOf="parent">
+        app:theme="@style/ThemeOverlay.Material3.Dark.ActionBar">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbarAdd"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:titleTextColor="@color/orange" />
+            android:layout_height="match_parent"
+            app:titleTextColor="@color/colorOnPrimary" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <EditText
         android:id="@+id/emailField"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_margin="8dp"
+        android:autofillHints="emailAddress"
         android:hint="@string/hint_userEmail"
+        android:background="@color/colorSurface"
+        android:textColor="@color/colorOnSurface"
+        android:textColorHint="@color/colorOnSurface"
         android:inputType="textEmailAddress"
         app:layout_constraintTop_toBottomOf="@id/appBarLayout"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,10 +43,15 @@
 
     <EditText
         android:id="@+id/passwordField"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_margin="8dp"
+        android:autofillHints="password"
         android:hint="@string/hint_userPassword"
         android:inputType="textPassword"
+        android:background="@color/colorSurface"
+        android:textColor="@color/colorOnSurface"
+        android:textColorHint="@color/colorOnSurface"
         app:layout_constraintTop_toBottomOf="@id/emailField"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,6 +62,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/button_login"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorOnPrimary"
         app:layout_constraintTop_toBottomOf="@id/passwordField"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -18,7 +18,7 @@
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/turquoise"
+            android:background="@color/colorPrimary"
             android:fitsSystemWindows="true"
             app:elevation="0dp"
             app:theme="@style/ThemeOverlay.Material3.Dark.ActionBar">
@@ -26,8 +26,8 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarAdd"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:titleTextColor="@color/orange" />
+                android:layout_height="match_parent"
+                app:titleTextColor="@color/colorOnPrimary" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <ScrollView
@@ -47,12 +47,14 @@
                     android:layout_height="48dp"
                     android:layout_margin="8dp"
                     android:autofillHints="hint"
+                    android:background="@color/colorSurface"
                     android:hint="@string/hint_placeTitle"
                     android:inputType="text"
                     android:maxLength="25"
                     android:maxLines="1"
                     android:padding="8dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/colorOnSurface"
+                    android:textColorHint="@color/colorOnSurface"
                     android:textSize="16sp" />
 
                 <EditText
@@ -62,22 +64,26 @@
                     android:layout_margin="8dp"
                     android:autofillHints="hint"
                     android:hint="@string/hint_placeDescription"
+                    android:textColorHint="@color/colorOnSurface"
                     android:inputType="textMultiLine"
                     android:maxLength="25"
                     android:maxLines="1"
                     android:padding="8dp"
-                    android:textColor="@color/white"/>
+                    android:background="@color/colorSurface"
+                    android:textColor="@color/colorOnSurface"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/placeTypeHeader"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="40dp"
                     android:layout_margin="8dp"
                     android:text="@string/header_placeType"
-                    android:textSize="18sp"
                     android:textStyle="bold"
                     android:padding="8dp"
-                    android:textColor="@color/white"/>
+                    android:background="@color/colorBackground"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="20sp" />
 
                 <RadioGroup
                     android:id="@+id/placeTypeRadioGroup"
@@ -115,13 +121,14 @@
                 <TextView
                     android:id="@+id/AmenitiesHeader"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="40dp"
                     android:layout_margin="8dp"
                     android:text="@string/header_amenities"
-                    android:textSize="18sp"
                     android:textStyle="bold"
                     android:padding="8dp"
-                    android:textColor="@color/white"/>
+                    android:background="@color/colorBackground"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="20sp" />
 
                 <CheckBox
                     android:id="@+id/checkbox_free"
@@ -182,13 +189,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:background="@color/turquoise"
-                android:padding="8dp"
-                android:text="@string/button_addImage"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-
-                tools:ignore="VisualLintButtonSize" />
+                    android:background="@color/colorSurface"
+                    android:padding="8dp"
+                    android:text="@string/button_addImage"
+                    android:textColor="@color/colorOnSurface"
+                    android:textSize="16sp"
+                    tools:ignore="VisualLintButtonSize" />
 
                 <ImageView
                     android:id="@+id/thirdPlaceImage"
@@ -203,24 +209,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:background="@color/turquoise"
-                android:padding="8dp"
-                android:stateListAnimator="@null"
-                android:text="@string/button_addLocation"
-                android:textColor="@color/white"
-                android:textSize="16sp"/>
+                    android:background="@color/colorSurface"
+                    android:padding="8dp"
+                    android:text="@string/button_addLocation"
+                    android:textColor="@color/colorOnSurface"
+                    android:textSize="16sp"
+                    tools:ignore="VisualLintButtonSize" />
 
                 <Button
                     android:id="@+id/btnAddPlace"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:background="@color/turquoise"
+                    android:background="@color/colorPrimary"
                     android:padding="8dp"
-                    android:stateListAnimator="@null"
                     android:text="@string/button_addPlace"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textColor="@color/colorOnPrimary"
+                    android:textSize="16sp"
+                    tools:ignore="VisualLintButtonSize" />
 
             </LinearLayout>
         </ScrollView>

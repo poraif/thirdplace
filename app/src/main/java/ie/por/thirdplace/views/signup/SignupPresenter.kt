@@ -6,17 +6,11 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import ie.por.thirdplace.main.MainApp
 import ie.por.thirdplace.models.user.UserModel
-import ie.por.thirdplace.views.signup.SignupView
-import ie.por.thirdplace.models.user.UserStore
 import android.util.Patterns
-import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import ie.por.thirdplace.R
 import ie.por.thirdplace.models.user.UserJSONStore
 import ie.por.thirdplace.views.login.LoginView
-import ie.por.thirdplace.views.thirdPlaceMap.ThirdPlaceMapView
-import timber.log.Timber.i
-import timber.log.Timber
 
 class SignupPresenter(val view: SignupView) {
 

@@ -24,7 +24,6 @@ class ThirdPlacePresenter(private val view: ThirdPlaceView) {
     init {
         if (view.intent.hasExtra("thirdPlace_edit")) {
             edit = true
-            //thirdPlace = view.intent.getParcelableExtra("thirdPlace_edit",ThirdPlaceModel::class.java)!!  
             thirdPlace = view.intent.extras?.getParcelable("thirdPlace_edit")!!
             view.showThirdPlace(thirdPlace)
         }
@@ -127,7 +126,6 @@ class ThirdPlacePresenter(private val view: ThirdPlaceView) {
                     AppCompatActivity.RESULT_OK -> {
                         if (result.data != null) {
                             Timber.i("Got Location ${result.data.toString()}")
-                            //val location = result.data!!.extras?.getParcelable("location",Location::class.java)!!  
                             val location = result.data!!.extras?.getParcelable<Location>("location")!!
                             Timber.i("Location == $location")
                             thirdPlace.lat = location.lat
